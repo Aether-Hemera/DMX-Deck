@@ -44,6 +44,11 @@ namespace SerialDmxDeck
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
+            SendCommand();
+        }
+
+        private void SendCommand()
+        {
             lblValue.Text = trackBar1.Value.ToString();
 
             string sc = Channel.ToString() + "c";
@@ -51,6 +56,12 @@ namespace SerialDmxDeck
 
             if (CommSerial != null && CommSerial.IsOpen)
                 CommSerial.Write(sc + sv);
+        }
+
+        internal void SetValue(int p)
+        {
+            trackBar1.Value = p;
+            SendCommand();
         }
     }
 }

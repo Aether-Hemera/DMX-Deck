@@ -36,25 +36,36 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.nudTo = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbSerialSelect = new System.Windows.Forms.ComboBox();
+            this.txtReport = new System.Windows.Forms.TextBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.cmdClear = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.txtCustomChannels = new System.Windows.Forms.TextBox();
+            this.cmdSetCustomChannels = new System.Windows.Forms.Button();
+            this.cmdSetAll = new System.Windows.Forms.Button();
+            this.chkAsColor = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudFrom)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTo)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(13, 54);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(13, 99);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(900, 243);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(900, 198);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // nudFrom
@@ -78,7 +89,7 @@
             // button1
             // 
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.button1.Location = new System.Drawing.Point(725, 6);
+            this.button1.Location = new System.Drawing.Point(471, 6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(169, 23);
             this.button1.TabIndex = 2;
@@ -98,8 +109,8 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 7;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -113,13 +124,11 @@
             this.tableLayoutPanel1.Controls.Add(this.nudFrom, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.button1, 6, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.comboBox1, 5, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(16, 12);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 6);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(897, 36);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(643, 36);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // nudTo
@@ -150,57 +159,151 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "To";
             // 
-            // textBox1
+            // label3
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(13, 303);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(900, 178);
-            this.textBox1.TabIndex = 5;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(17, 14);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(36, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Serial:";
+            // 
+            // cmbSerialSelect
+            // 
+            this.cmbSerialSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSerialSelect.FormattingEnabled = true;
+            this.cmbSerialSelect.Location = new System.Drawing.Point(15, 38);
+            this.cmbSerialSelect.Name = "cmbSerialSelect";
+            this.cmbSerialSelect.Size = new System.Drawing.Size(121, 21);
+            this.cmbSerialSelect.TabIndex = 7;
+            // 
+            // txtReport
+            // 
+            this.txtReport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtReport.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReport.Location = new System.Drawing.Point(13, 303);
+            this.txtReport.Multiline = true;
+            this.txtReport.Name = "txtReport";
+            this.txtReport.Size = new System.Drawing.Size(900, 149);
+            this.txtReport.TabIndex = 5;
             // 
             // timer1
             // 
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // label3
+            // cmdClear
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(317, 11);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(36, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Serial:";
+            this.cmdClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cmdClear.Location = new System.Drawing.Point(12, 458);
+            this.cmdClear.Name = "cmdClear";
+            this.cmdClear.Size = new System.Drawing.Size(75, 23);
+            this.cmdClear.TabIndex = 6;
+            this.cmdClear.Text = "Clear";
+            this.cmdClear.UseVisualStyleBackColor = true;
+            this.cmdClear.Click += new System.EventHandler(this.cmdClear_Click);
             // 
-            // comboBox1
+            // tabControl1
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(359, 7);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 7;
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(190, 6);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(723, 87);
+            this.tabControl1.TabIndex = 7;
             // 
-            // Form1
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.tableLayoutPanel1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(715, 61);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Range";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.chkAsColor);
+            this.tabPage2.Controls.Add(this.txtCustomChannels);
+            this.tabPage2.Controls.Add(this.cmdSetCustomChannels);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(715, 61);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Custom";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // txtCustomChannels
+            // 
+            this.txtCustomChannels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCustomChannels.Location = new System.Drawing.Point(6, 9);
+            this.txtCustomChannels.Multiline = true;
+            this.txtCustomChannels.Name = "txtCustomChannels";
+            this.txtCustomChannels.Size = new System.Drawing.Size(528, 46);
+            this.txtCustomChannels.TabIndex = 4;
+            // 
+            // cmdSetCustomChannels
+            // 
+            this.cmdSetCustomChannels.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.cmdSetCustomChannels.Location = new System.Drawing.Point(540, 8);
+            this.cmdSetCustomChannels.Name = "cmdSetCustomChannels";
+            this.cmdSetCustomChannels.Size = new System.Drawing.Size(169, 23);
+            this.cmdSetCustomChannels.TabIndex = 3;
+            this.cmdSetCustomChannels.Text = "Set channels";
+            this.cmdSetCustomChannels.UseVisualStyleBackColor = true;
+            this.cmdSetCustomChannels.Click += new System.EventHandler(this.cmdSetCustomChannels_Click);
+            // 
+            // cmdSetAll
+            // 
+            this.cmdSetAll.Location = new System.Drawing.Point(12, 65);
+            this.cmdSetAll.Name = "cmdSetAll";
+            this.cmdSetAll.Size = new System.Drawing.Size(124, 23);
+            this.cmdSetAll.TabIndex = 8;
+            this.cmdSetAll.Text = "All 0";
+            this.cmdSetAll.UseVisualStyleBackColor = true;
+            this.cmdSetAll.Click += new System.EventHandler(this.cmdSetAll_Click);
+            // 
+            // chkAsColor
+            // 
+            this.chkAsColor.AutoSize = true;
+            this.chkAsColor.Location = new System.Drawing.Point(546, 38);
+            this.chkAsColor.Name = "chkAsColor";
+            this.chkAsColor.Size = new System.Drawing.Size(69, 17);
+            this.chkAsColor.TabIndex = 5;
+            this.chkAsColor.Text = "As colors";
+            this.chkAsColor.UseVisualStyleBackColor = true;
+            // 
+            // frmDmxDeck
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(925, 493);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.cmdSetAll);
+            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.cmdClear);
+            this.Controls.Add(this.txtReport);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Name = "Form1";
+            this.Controls.Add(this.cmbSerialSelect);
+            this.Controls.Add(this.label3);
+            this.Name = "frmDmxDeck";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.nudFrom)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTo)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -215,10 +318,18 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.NumericUpDown nudTo;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtReport;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbSerialSelect;
+        private System.Windows.Forms.Button cmdClear;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TextBox txtCustomChannels;
+        private System.Windows.Forms.Button cmdSetCustomChannels;
+        private System.Windows.Forms.Button cmdSetAll;
+        private System.Windows.Forms.CheckBox chkAsColor;
     }
 }
 

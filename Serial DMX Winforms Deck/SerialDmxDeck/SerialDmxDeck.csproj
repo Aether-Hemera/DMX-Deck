@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DmxColor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DmxColor.Designer.cs">
+      <DependentUpon>DmxColor.cs</DependentUpon>
+    </Compile>
     <Compile Include="DmxChannel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -60,6 +66,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DmxColor.resx">
+      <DependentUpon>DmxColor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DmxChannel.resx">
       <DependentUpon>DmxChannel.cs</DependentUpon>
     </EmbeddedResource>
