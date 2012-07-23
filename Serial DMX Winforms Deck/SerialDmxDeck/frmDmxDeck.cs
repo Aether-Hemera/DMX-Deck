@@ -26,8 +26,14 @@ namespace SerialDmxDeck
             {
                 cmbSerialSelect.Items.Add(s);
             }
-            cmbSerialSelect.SelectedIndex = 0;
+            try
+            {
+                cmbSerialSelect.SelectedIndex = 0;
+            }
+            catch
+            {
 
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -174,6 +180,42 @@ namespace SerialDmxDeck
                     ch.SetValue(0);
                 }
 
+            }
+        }
+
+        private void cmdEchoOn_Click(object sender, EventArgs e)
+        {
+            _comPort.Write("e");
+        }
+
+        private void cmdEchoOff_Click(object sender, EventArgs e)
+        {
+            _comPort.Write("o");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            List<int> channels = new List<int>();
+            Regex re = new Regex("(\\d+)"); // one or more digits
+            var mts = re.Matches(txtValues.Text);
+            foreach (Match m in mts)
+            {
+                int v = Convert.ToInt32(m.Value);
+                channels.Add(v);
+            }
+            if (channels.Count == 0)
+            {
+                return;
+            }
+
+            for (int i = 0; i < flowLayoutPanel1.Controls.Count; i++)
+            {    
+                int iVal = i % channels.Count;
+                DmxChannel ch = flowLayoutPanel1.Controls[i] as DmxChannel;
+                if (ch != null)
+                {
+                    ch.SetValue(channels[iVal]);
+                }   
             }
         }
     }

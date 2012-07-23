@@ -44,16 +44,22 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.chkAsColor = new System.Windows.Forms.CheckBox();
             this.txtCustomChannels = new System.Windows.Forms.TextBox();
             this.cmdSetCustomChannels = new System.Windows.Forms.Button();
             this.cmdSetAll = new System.Windows.Forms.Button();
-            this.chkAsColor = new System.Windows.Forms.CheckBox();
+            this.cmdEchoOn = new System.Windows.Forms.Button();
+            this.cmdEchoOff = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.txtValues = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudFrom)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTo)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -174,7 +180,7 @@
             this.cmbSerialSelect.FormattingEnabled = true;
             this.cmbSerialSelect.Location = new System.Drawing.Point(15, 38);
             this.cmbSerialSelect.Name = "cmbSerialSelect";
-            this.cmbSerialSelect.Size = new System.Drawing.Size(121, 21);
+            this.cmbSerialSelect.Size = new System.Drawing.Size(72, 21);
             this.cmbSerialSelect.TabIndex = 7;
             // 
             // txtReport
@@ -210,6 +216,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(190, 6);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -240,6 +247,17 @@
             this.tabPage2.Text = "Custom";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // chkAsColor
+            // 
+            this.chkAsColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkAsColor.AutoSize = true;
+            this.chkAsColor.Location = new System.Drawing.Point(546, 38);
+            this.chkAsColor.Name = "chkAsColor";
+            this.chkAsColor.Size = new System.Drawing.Size(69, 17);
+            this.chkAsColor.TabIndex = 5;
+            this.chkAsColor.Text = "As colors";
+            this.chkAsColor.UseVisualStyleBackColor = true;
+            // 
             // txtCustomChannels
             // 
             this.txtCustomChannels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -265,27 +283,71 @@
             // 
             this.cmdSetAll.Location = new System.Drawing.Point(12, 65);
             this.cmdSetAll.Name = "cmdSetAll";
-            this.cmdSetAll.Size = new System.Drawing.Size(124, 23);
+            this.cmdSetAll.Size = new System.Drawing.Size(75, 23);
             this.cmdSetAll.TabIndex = 8;
             this.cmdSetAll.Text = "All 0";
             this.cmdSetAll.UseVisualStyleBackColor = true;
             this.cmdSetAll.Click += new System.EventHandler(this.cmdSetAll_Click);
             // 
-            // chkAsColor
+            // cmdEchoOn
             // 
-            this.chkAsColor.AutoSize = true;
-            this.chkAsColor.Location = new System.Drawing.Point(546, 38);
-            this.chkAsColor.Name = "chkAsColor";
-            this.chkAsColor.Size = new System.Drawing.Size(69, 17);
-            this.chkAsColor.TabIndex = 5;
-            this.chkAsColor.Text = "As colors";
-            this.chkAsColor.UseVisualStyleBackColor = true;
+            this.cmdEchoOn.Location = new System.Drawing.Point(93, 37);
+            this.cmdEchoOn.Name = "cmdEchoOn";
+            this.cmdEchoOn.Size = new System.Drawing.Size(75, 23);
+            this.cmdEchoOn.TabIndex = 9;
+            this.cmdEchoOn.Text = "Echo On";
+            this.cmdEchoOn.UseVisualStyleBackColor = true;
+            this.cmdEchoOn.Click += new System.EventHandler(this.cmdEchoOn_Click);
+            // 
+            // cmdEchoOff
+            // 
+            this.cmdEchoOff.Location = new System.Drawing.Point(93, 65);
+            this.cmdEchoOff.Name = "cmdEchoOff";
+            this.cmdEchoOff.Size = new System.Drawing.Size(75, 23);
+            this.cmdEchoOff.TabIndex = 10;
+            this.cmdEchoOff.Text = "Echo Off";
+            this.cmdEchoOff.UseVisualStyleBackColor = true;
+            this.cmdEchoOff.Click += new System.EventHandler(this.cmdEchoOff_Click);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.txtValues);
+            this.tabPage3.Controls.Add(this.button2);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(715, 61);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Values";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // txtValues
+            // 
+            this.txtValues.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtValues.Location = new System.Drawing.Point(6, 8);
+            this.txtValues.Multiline = true;
+            this.txtValues.Name = "txtValues";
+            this.txtValues.Size = new System.Drawing.Size(528, 46);
+            this.txtValues.TabIndex = 6;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.button2.Location = new System.Drawing.Point(540, 7);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(169, 23);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "Set";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // frmDmxDeck
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(925, 493);
+            this.Controls.Add(this.cmdEchoOff);
+            this.Controls.Add(this.cmdEchoOn);
             this.Controls.Add(this.cmdSetAll);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.cmdClear);
@@ -304,6 +366,8 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -330,6 +394,11 @@
         private System.Windows.Forms.Button cmdSetCustomChannels;
         private System.Windows.Forms.Button cmdSetAll;
         private System.Windows.Forms.CheckBox chkAsColor;
+        private System.Windows.Forms.Button cmdEchoOn;
+        private System.Windows.Forms.Button cmdEchoOff;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TextBox txtValues;
+        private System.Windows.Forms.Button button2;
     }
 }
 
