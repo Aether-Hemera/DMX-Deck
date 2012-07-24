@@ -83,6 +83,8 @@ namespace SerialDmxDeck
 
         private void SendCommand()
         {
+            // todo: calculate the r/g/b values here as well and allow the user to change
+            // 
             lblValue.Text = trackBar1.Value.ToString();
 
             StringBuilder sb = new StringBuilder();

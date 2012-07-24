@@ -105,7 +105,7 @@ namespace SerialDmxDeck
             chControl.CommSerial = _comPort;
             chControl.Location = new System.Drawing.Point(3, 3);
             chControl.Name = "dmxChannel";
-            chControl.Size = new System.Drawing.Size(49, 314);
+            // chControl.Size = new System.Drawing.Size(49, 314);
             chControl.TabIndex = 0;
             flowLayoutPanel1.Controls.Add(chControl);
         }
@@ -185,12 +185,28 @@ namespace SerialDmxDeck
 
         private void cmdEchoOn_Click(object sender, EventArgs e)
         {
-            _comPort.Write("e");
+            try
+            {
+                _comPort.Write("e");
+            }
+            catch (Exception)
+            {
+                
+            }
+            
         }
 
         private void cmdEchoOff_Click(object sender, EventArgs e)
         {
-            _comPort.Write("o");
+            try
+            {
+                _comPort.Write("o");
+            }
+            catch (Exception)
+            {
+                
+            }
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
