@@ -1,3 +1,5 @@
 This project aim is to control a DMX chain from your PC with a GUI deck.
 
 It's made of a CSharp application sending commands via ther serial port to an Arduino with a DMX Shield.
+
+The current version includes a couple of firmwares to replace the DMX controller with an arduino-based PWM version allowing the chaining of more arduinos via I2C.
