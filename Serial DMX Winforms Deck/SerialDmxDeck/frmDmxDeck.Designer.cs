@@ -30,36 +30,37 @@
         {
             this.components = new System.ComponentModel.Container();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.nudFrom = new System.Windows.Forms.NumericUpDown();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.nudTo = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.cmbSerialSelect = new System.Windows.Forms.ComboBox();
             this.txtReport = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.cmdClear = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.chkAsColor = new System.Windows.Forms.CheckBox();
-            this.txtCustomChannels = new System.Windows.Forms.TextBox();
             this.cmdSetCustomChannels = new System.Windows.Forms.Button();
+            this.txtValues = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.cmdSetAll = new System.Windows.Forms.Button();
             this.cmdEchoOn = new System.Windows.Forms.Button();
             this.cmdEchoOff = new System.Windows.Forms.Button();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.txtValues = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.nudFrom)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTo)).BeginInit();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtCustomChannels = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.tabControl2.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -69,129 +70,34 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(13, 99);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(7, 7);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(900, 198);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1179, 242);
             this.flowLayoutPanel1.TabIndex = 0;
-            // 
-            // nudFrom
-            // 
-            this.nudFrom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudFrom.Location = new System.Drawing.Point(39, 8);
-            this.nudFrom.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudFrom.Name = "nudFrom";
-            this.nudFrom.Size = new System.Drawing.Size(120, 20);
-            this.nudFrom.TabIndex = 1;
-            this.nudFrom.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // button1
-            // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.button1.Location = new System.Drawing.Point(471, 6);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(169, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Set channels";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "From";
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 7;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.nudTo, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.nudFrom, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 6, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 6);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(643, 36);
-            this.tableLayoutPanel1.TabIndex = 4;
-            // 
-            // nudTo
-            // 
-            this.nudTo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudTo.Location = new System.Drawing.Point(191, 8);
-            this.nudTo.Maximum = new decimal(new int[] {
-            250,
-            0,
-            0,
-            0});
-            this.nudTo.Name = "nudTo";
-            this.nudTo.Size = new System.Drawing.Size(120, 20);
-            this.nudTo.TabIndex = 5;
-            this.nudTo.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(165, 11);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(20, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "To";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 14);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(36, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Serial:";
             // 
             // cmbSerialSelect
             // 
             this.cmbSerialSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSerialSelect.FormattingEnabled = true;
-            this.cmbSerialSelect.Location = new System.Drawing.Point(15, 38);
+            this.cmbSerialSelect.Location = new System.Drawing.Point(7, 22);
+            this.cmbSerialSelect.Margin = new System.Windows.Forms.Padding(4);
             this.cmbSerialSelect.Name = "cmbSerialSelect";
-            this.cmbSerialSelect.Size = new System.Drawing.Size(72, 21);
+            this.cmbSerialSelect.Size = new System.Drawing.Size(86, 24);
             this.cmbSerialSelect.TabIndex = 7;
             // 
             // txtReport
             // 
-            this.txtReport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtReport.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtReport.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtReport.Location = new System.Drawing.Point(13, 303);
+            this.txtReport.Location = new System.Drawing.Point(108, 4);
+            this.txtReport.Margin = new System.Windows.Forms.Padding(4);
             this.txtReport.Multiline = true;
             this.txtReport.Name = "txtReport";
-            this.txtReport.Size = new System.Drawing.Size(900, 149);
+            this.txtReport.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtReport.Size = new System.Drawing.Size(1097, 280);
             this.txtReport.TabIndex = 5;
             // 
             // timer1
@@ -201,99 +107,76 @@
             // 
             // cmdClear
             // 
-            this.cmdClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cmdClear.Location = new System.Drawing.Point(12, 458);
+            this.cmdClear.Location = new System.Drawing.Point(4, 140);
+            this.cmdClear.Margin = new System.Windows.Forms.Padding(4);
             this.cmdClear.Name = "cmdClear";
-            this.cmdClear.Size = new System.Drawing.Size(75, 23);
+            this.cmdClear.Size = new System.Drawing.Size(100, 28);
             this.cmdClear.TabIndex = 6;
             this.cmdClear.Text = "Clear";
             this.cmdClear.UseVisualStyleBackColor = true;
             this.cmdClear.Click += new System.EventHandler(this.cmdClear_Click);
             // 
-            // tabControl1
-            // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(190, 6);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(723, 87);
-            this.tabControl1.TabIndex = 7;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.tableLayoutPanel1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(715, 61);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Range";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.chkAsColor);
-            this.tabPage2.Controls.Add(this.txtCustomChannels);
-            this.tabPage2.Controls.Add(this.cmdSetCustomChannels);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(715, 61);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Custom";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
             // chkAsColor
             // 
             this.chkAsColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkAsColor.AutoSize = true;
-            this.chkAsColor.Location = new System.Drawing.Point(546, 38);
+            this.chkAsColor.Location = new System.Drawing.Point(972, 58);
+            this.chkAsColor.Margin = new System.Windows.Forms.Padding(4);
             this.chkAsColor.Name = "chkAsColor";
-            this.chkAsColor.Size = new System.Drawing.Size(69, 17);
+            this.chkAsColor.Size = new System.Drawing.Size(88, 21);
             this.chkAsColor.TabIndex = 5;
             this.chkAsColor.Text = "As colors";
             this.chkAsColor.UseVisualStyleBackColor = true;
             // 
-            // txtCustomChannels
-            // 
-            this.txtCustomChannels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCustomChannels.Location = new System.Drawing.Point(6, 9);
-            this.txtCustomChannels.Multiline = true;
-            this.txtCustomChannels.Name = "txtCustomChannels";
-            this.txtCustomChannels.Size = new System.Drawing.Size(528, 46);
-            this.txtCustomChannels.TabIndex = 4;
-            // 
             // cmdSetCustomChannels
             // 
-            this.cmdSetCustomChannels.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.cmdSetCustomChannels.Location = new System.Drawing.Point(540, 8);
+            this.cmdSetCustomChannels.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSetCustomChannels.Location = new System.Drawing.Point(972, 22);
+            this.cmdSetCustomChannels.Margin = new System.Windows.Forms.Padding(4);
             this.cmdSetCustomChannels.Name = "cmdSetCustomChannels";
-            this.cmdSetCustomChannels.Size = new System.Drawing.Size(169, 23);
+            this.cmdSetCustomChannels.Size = new System.Drawing.Size(202, 28);
             this.cmdSetCustomChannels.TabIndex = 3;
             this.cmdSetCustomChannels.Text = "Set channels";
             this.cmdSetCustomChannels.UseVisualStyleBackColor = true;
             this.cmdSetCustomChannels.Click += new System.EventHandler(this.cmdSetCustomChannels_Click);
             // 
+            // txtValues
+            // 
+            this.txtValues.Location = new System.Drawing.Point(7, 22);
+            this.txtValues.Margin = new System.Windows.Forms.Padding(4);
+            this.txtValues.Multiline = true;
+            this.txtValues.Name = "txtValues";
+            this.txtValues.Size = new System.Drawing.Size(293, 79);
+            this.txtValues.TabIndex = 6;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(7, 109);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(293, 28);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "Set";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // cmdSetAll
             // 
-            this.cmdSetAll.Location = new System.Drawing.Point(12, 65);
+            this.cmdSetAll.Location = new System.Drawing.Point(13, 13);
+            this.cmdSetAll.Margin = new System.Windows.Forms.Padding(4);
             this.cmdSetAll.Name = "cmdSetAll";
-            this.cmdSetAll.Size = new System.Drawing.Size(75, 23);
+            this.cmdSetAll.Size = new System.Drawing.Size(307, 28);
             this.cmdSetAll.TabIndex = 8;
-            this.cmdSetAll.Text = "All 0";
+            this.cmdSetAll.Text = "All values 0";
             this.cmdSetAll.UseVisualStyleBackColor = true;
             this.cmdSetAll.Click += new System.EventHandler(this.cmdSetAll_Click);
             // 
             // cmdEchoOn
             // 
-            this.cmdEchoOn.Location = new System.Drawing.Point(93, 37);
+            this.cmdEchoOn.Location = new System.Drawing.Point(7, 54);
+            this.cmdEchoOn.Margin = new System.Windows.Forms.Padding(4);
             this.cmdEchoOn.Name = "cmdEchoOn";
-            this.cmdEchoOn.Size = new System.Drawing.Size(75, 23);
+            this.cmdEchoOn.Size = new System.Drawing.Size(86, 28);
             this.cmdEchoOn.TabIndex = 9;
             this.cmdEchoOn.Text = "Echo On";
             this.cmdEchoOn.UseVisualStyleBackColor = true;
@@ -301,104 +184,184 @@
             // 
             // cmdEchoOff
             // 
-            this.cmdEchoOff.Location = new System.Drawing.Point(93, 65);
+            this.cmdEchoOff.Location = new System.Drawing.Point(7, 90);
+            this.cmdEchoOff.Margin = new System.Windows.Forms.Padding(4);
             this.cmdEchoOff.Name = "cmdEchoOff";
-            this.cmdEchoOff.Size = new System.Drawing.Size(75, 23);
+            this.cmdEchoOff.Size = new System.Drawing.Size(86, 28);
             this.cmdEchoOff.TabIndex = 10;
             this.cmdEchoOff.Text = "Echo Off";
             this.cmdEchoOff.UseVisualStyleBackColor = true;
             this.cmdEchoOff.Click += new System.EventHandler(this.cmdEchoOff_Click);
             // 
-            // tabPage3
+            // tabControl2
             // 
-            this.tabPage3.Controls.Add(this.txtValues);
-            this.tabPage3.Controls.Add(this.button2);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(715, 61);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Values";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // txtValues
-            // 
-            this.txtValues.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtValues.Location = new System.Drawing.Point(6, 8);
-            this.txtValues.Multiline = true;
-            this.txtValues.Name = "txtValues";
-            this.txtValues.Size = new System.Drawing.Size(528, 46);
-            this.txtValues.TabIndex = 6;
+            this.tabControl2.Controls.Add(this.tabPage4);
+            this.tabControl2.Controls.Add(this.tabPage5);
+            this.tabControl2.Controls.Add(this.tabPage6);
+            this.tabControl2.Location = new System.Drawing.Point(4, 3);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(1201, 285);
+            this.tabControl2.TabIndex = 11;
             // 
-            // button2
+            // tabPage4
             // 
-            this.button2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.button2.Location = new System.Drawing.Point(540, 7);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(169, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Set";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.tabPage4.Controls.Add(this.groupBox2);
+            this.tabPage4.Location = new System.Drawing.Point(4, 25);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(1193, 256);
+            this.tabPage4.TabIndex = 0;
+            this.tabPage4.Text = "Setup";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.cmdSetCustomChannels);
+            this.groupBox2.Controls.Add(this.chkAsColor);
+            this.groupBox2.Controls.Add(this.txtCustomChannels);
+            this.groupBox2.Location = new System.Drawing.Point(6, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(1181, 244);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Channels";
+            // 
+            // txtCustomChannels
+            // 
+            this.txtCustomChannels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCustomChannels.Location = new System.Drawing.Point(10, 22);
+            this.txtCustomChannels.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCustomChannels.Multiline = true;
+            this.txtCustomChannels.Name = "txtCustomChannels";
+            this.txtCustomChannels.Size = new System.Drawing.Size(954, 136);
+            this.txtCustomChannels.TabIndex = 6;
+            this.txtCustomChannels.Text = "1-9;10;11;12";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.cmbSerialSelect);
+            this.groupBox1.Controls.Add(this.cmdEchoOn);
+            this.groupBox1.Controls.Add(this.cmdEchoOff);
+            this.groupBox1.Location = new System.Drawing.Point(4, 4);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(100, 129);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Serial";
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.flowLayoutPanel1);
+            this.tabPage5.Location = new System.Drawing.Point(4, 25);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(1193, 256);
+            this.tabPage5.TabIndex = 1;
+            this.tabPage5.Text = "Controls";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.groupBox3);
+            this.tabPage6.Controls.Add(this.cmdSetAll);
+            this.tabPage6.Location = new System.Drawing.Point(4, 25);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(1193, 256);
+            this.tabPage6.TabIndex = 2;
+            this.tabPage6.Text = "Commands";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(12, 12);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.tabControl2);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.cmdClear);
+            this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
+            this.splitContainer1.Panel2.Controls.Add(this.txtReport);
+            this.splitContainer1.Size = new System.Drawing.Size(1209, 583);
+            this.splitContainer1.SplitterDistance = 291;
+            this.splitContainer1.TabIndex = 12;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.txtValues);
+            this.groupBox3.Controls.Add(this.button2);
+            this.groupBox3.Location = new System.Drawing.Point(13, 48);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(307, 145);
+            this.groupBox3.TabIndex = 9;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Pattern values";
             // 
             // frmDmxDeck
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(925, 493);
-            this.Controls.Add(this.cmdEchoOff);
-            this.Controls.Add(this.cmdEchoOn);
-            this.Controls.Add(this.cmdSetAll);
-            this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.cmdClear);
-            this.Controls.Add(this.txtReport);
-            this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.cmbSerialSelect);
-            this.Controls.Add(this.label3);
+            this.ClientSize = new System.Drawing.Size(1233, 607);
+            this.Controls.Add(this.splitContainer1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmDmxDeck";
-            this.Text = "Form1";
+            this.Text = "DMX Deck";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            ((System.ComponentModel.ISupportInitialize)(this.nudFrom)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTo)).EndInit();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.tabControl2.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.NumericUpDown nudFrom;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.NumericUpDown nudTo;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtReport;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbSerialSelect;
         private System.Windows.Forms.Button cmdClear;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TextBox txtCustomChannels;
         private System.Windows.Forms.Button cmdSetCustomChannels;
         private System.Windows.Forms.Button cmdSetAll;
         private System.Windows.Forms.CheckBox chkAsColor;
         private System.Windows.Forms.Button cmdEchoOn;
         private System.Windows.Forms.Button cmdEchoOff;
-        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TextBox txtValues;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox txtCustomChannels;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.GroupBox groupBox3;
     }
 }
 

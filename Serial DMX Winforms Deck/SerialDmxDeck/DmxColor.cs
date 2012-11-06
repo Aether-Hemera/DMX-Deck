@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO.Ports;
+using Devcorp.Controls.Design;
 
 namespace SerialDmxDeck
 {
-    public partial class DmxColor : UserControl
+    public partial class DmxColor : UserControl, ISetOneValue
     {
         public DmxColor()
         {
@@ -78,6 +79,16 @@ namespace SerialDmxDeck
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
+
+            // UpdateRGB(
+
+            var v = ColorSpaceHelper.HSBtoRGB(
+                (double)this.tbHue.Value, 1, 1);
+            //);
+            tbRed.Value = v.Red;
+            tbGreen.Value = v.Green;
+            tbBlue.Value = v.Blue;
+
             SendCommand();
         }
 
@@ -85,13 +96,24 @@ namespace SerialDmxDeck
         {
             // todo: calculate the r/g/b values here as well and allow the user to change
             // 
-            lblValue.Text = trackBar1.Value.ToString();
+            lblValue.Text = tbHue.Value.ToString();
+            StringBuilder sb = new StringBuilder(); 
+#if calcremotely
+            // the following applies if the rgb value is calculated remotely
+            // sb.Append(ChannelR.ToString() + "r");
+            // sb.Append(ChannelG.ToString() + "g");
+            // sb.Append(ChannelB.ToString() + "b");
+            // sb.Append(tbHue.Value.ToString() + "h");
+#else
+            sb.Append(ChannelR.ToString() + "c");
+            sb.Append(tbRed.Value.ToString() + "v");
 
-            StringBuilder sb = new StringBuilder();
-            sb.Append(ChannelR.ToString() + "r");
-            sb.Append(ChannelG.ToString() + "g");
-            sb.Append(ChannelB.ToString() + "b");
-            sb.Append(trackBar1.Value.ToString() + "h");
+            sb.Append(ChannelG.ToString() + "c");
+            sb.Append(tbGreen.Value.ToString() + "v");
+
+            sb.Append(ChannelB.ToString() + "c");
+            sb.Append(tbBlue.Value.ToString() + "v");
+#endif
             if (CommSerial != null && CommSerial.IsOpen)
             {
                 string sending = sb.ToString();
@@ -99,9 +121,9 @@ namespace SerialDmxDeck
             }
         }
 
-        internal void SetValue(int p)
+        void ISetOneValue.SetValue(int value)
         {
-            trackBar1.Value = p;
+            tbHue.Value = value;
             SendCommand();
         }
     }

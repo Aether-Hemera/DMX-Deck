@@ -17,7 +17,7 @@
 #include <DmxSimple.h>
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   Serial.println();
   Serial.println("SerialToDmx ready");
   Serial.println();
@@ -35,6 +35,7 @@ void setup() {
 
 int value = 0;
 int channel;
+int bEcho = 0;
 
 void loop() {
   int c;
@@ -42,16 +43,27 @@ void loop() {
   while(!Serial.available());
   c = Serial.read();
   if ((c>='0') && (c<='9')) {
-    value = 10*value + c - '0';
+    value = 10*value + c - '0'; // shift ten and add value
   } else {
-    if (c=='c') channel = value;
+    if (c=='c') // sets the channel to be written at the specificed value received
+		channel = value;
     else if (c=='v') {
-      Serial.print(channel);
-      Serial.print(": ");
-      Serial.print(value);
-      Serial.print(" ");
-      DmxSimple.write(channel, value);
-      // Serial.println();
+		if (bEcho == 1)
+	  	{
+			Serial.print(channel);
+			Serial.print(": ");
+			Serial.print(value);
+			Serial.print(" ");
+		}
+      	DmxSimple.write(channel, value);
+	}
+    else if (c=='e') {
+      bEcho = 1;
+      Serial.print("echo on ");
+    }
+    else if (c=='o') {
+      bEcho = 0;
+      Serial.print("echo off ");
     }
     value = 0;
   }

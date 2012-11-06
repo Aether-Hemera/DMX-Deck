@@ -36,17 +36,7 @@ namespace SerialDmxDeck
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            List<int> channels = new List<int>();
-            for (int iCh = (int)nudFrom.Value; iCh <= (int)nudTo.Value; iCh++)
-            {
-                channels.Add(iCh);
-            }
-            PrepareInterface(channels);
-        }
-
-        private void PrepareInterface(IEnumerable<int> channels)
+        private void PrepareInterface(List<int> channels)
         {
             if (_comPort != null)
             {
@@ -61,16 +51,18 @@ namespace SerialDmxDeck
             flowLayoutPanel1.SuspendLayout();
             flowLayoutPanel1.Controls.Clear();
 
-            if (chkAsColor.Checked)
+            
+
+            for (int i = 0; i < channels.Count; i++)
             {
-                int[] a = channels.ToArray();
-                AddColorChannel(a[0], a[1], a[2]);
-            }
-            else
-            {
-                foreach (var iCh in channels)
+                if (chkAsColor.Checked && i + 2 < channels.Count)
                 {
-                    AddChannel(iCh);
+                    AddColorChannel(channels[i], channels[i + 1], channels[i + 2]);
+                    i += 2;
+                }
+                else
+                {
+                    AddChannel(i);
                 }
             }
 
@@ -157,12 +149,35 @@ namespace SerialDmxDeck
         private void cmdSetCustomChannels_Click(object sender, EventArgs e)
         {
             List<int> channels = new List<int>();
-            Regex re = new Regex("(\\d+)"); // one or more digits
-            var mts = re.Matches(txtCustomChannels.Text);
-            foreach (Match m in mts)
+            string[] sArr = txtCustomChannels.Text.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var item in sArr)
             {
-                int v = Convert.ToInt32(m.Value);
-                channels.Add(v);
+                Regex reRange = new Regex(" *(\\d+) *- *(\\d+) *"); // x-y
+                var mts = reRange.Matches(item);
+                if (mts.Count > 0)
+                {
+                    int vFrom = Convert.ToInt32(mts[0].Groups[1].Value);
+                    int vTo = Convert.ToInt32(mts[0].Groups[2].Value);
+
+                    int vMin = Math.Min(vFrom, vTo);
+                    int vMax = Math.Max(vFrom, vTo);
+
+                    for (int i = vMin; i <= vMax; i++)
+                    {
+                        channels.Add(i);
+                    }
+                }
+                else
+                {
+                    Regex reSingle = new Regex(" *(\\d+) *"); // x-y
+                    if (reSingle.IsMatch(item))
+                    {
+                        var mtsingle = reSingle.Match(item);
+                        int vSingle = Convert.ToInt32(mtsingle.Value);
+                        channels.Add(vSingle);
+                    }
+                }
             }
             if (channels.Count > 0)
             {
@@ -174,12 +189,11 @@ namespace SerialDmxDeck
         {
             foreach (var item in flowLayoutPanel1.Controls)
             {
-                DmxChannel ch = item as DmxChannel;
+                ISetOneValue ch = item as ISetOneValue;
                 if (ch != null)
                 {
                     ch.SetValue(0);
                 }
-
             }
         }
 
@@ -227,7 +241,7 @@ namespace SerialDmxDeck
             for (int i = 0; i < flowLayoutPanel1.Controls.Count; i++)
             {    
                 int iVal = i % channels.Count;
-                DmxChannel ch = flowLayoutPanel1.Controls[i] as DmxChannel;
+                ISetOneValue ch = flowLayoutPanel1.Controls[i] as ISetOneValue;
                 if (ch != null)
                 {
                     ch.SetValue(channels[iVal]);

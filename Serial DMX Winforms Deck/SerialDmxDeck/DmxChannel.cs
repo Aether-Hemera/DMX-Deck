@@ -10,7 +10,7 @@ using System.IO.Ports;
 
 namespace SerialDmxDeck
 {
-    public partial class DmxChannel : UserControl
+    public partial class DmxChannel : UserControl, ISetOneValue
     {
         public DmxChannel()
         {
@@ -49,18 +49,18 @@ namespace SerialDmxDeck
 
         private void SendCommand()
         {
-            lblValue.Text = trackBar1.Value.ToString();
+            lblValue.Text = tbChannelVal.Value.ToString();
 
             string sc = Channel.ToString() + "c";
-            string sv = trackBar1.Value.ToString() + "v";
+            string sv = tbChannelVal.Value.ToString() + "v";
 
             if (CommSerial != null && CommSerial.IsOpen)
                 CommSerial.Write(sc + sv);
         }
 
-        internal void SetValue(int p)
+        void ISetOneValue.SetValue(int value)
         {
-            trackBar1.Value = p;
+            tbChannelVal.Value = value;
             SendCommand();
         }
     }
