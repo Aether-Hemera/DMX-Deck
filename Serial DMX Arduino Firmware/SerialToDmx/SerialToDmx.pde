@@ -22,6 +22,8 @@ void setup() {
   Serial.println("SerialToDmx ready");
   Serial.println();
   Serial.println("Syntax:");
+  Serial.println(" e    : Echo on");
+  Serial.println(" o    : Echo off");
   Serial.println(" 123c : use DMX channel 123");
   Serial.println(" 45v  : set current channel to value 45");
   
