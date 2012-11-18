@@ -62,7 +62,7 @@ namespace SerialDmxDeck
                 }
                 else
                 {
-                    AddChannel(i);
+                    AddChannel(channels[i]);
                 }
             }
 
