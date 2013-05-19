@@ -149,7 +149,7 @@ namespace SerialDmxDeck
         private void cmdSetCustomChannels_Click(object sender, EventArgs e)
         {
             List<int> channels = new List<int>();
-            string[] sArr = txtCustomChannels.Text.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] sArr = txtCustomChannels.Text.Split(new string[] { ";", "," }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var item in sArr)
             {

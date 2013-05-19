@@ -11,62 +11,72 @@
 
 #include <Wire.h>
 #include <SoftPWM.h>
+#define PINSPERBOARD 20
 
 byte Ports[] = {
-//  33,32,34,
-//  27,20,21,
-//  30,28,29,
-//  22,24,23,
-//  25,31,26,
-//  7,8,6,
-//  15,17,16,
-//  10,2,3,
-//  13,11,12,
-//  4,9,5
+// CA board
+  15,16,17,
+  9,3,2,	
+  12,11,10,	
+  4,5,6,	
+  7,8,13,
+// CC Board #2 
+  17,16,15,
+  13,8,7,
+  4,5,6,
+  10,11,12,
+// CC Board #1 
+  10,3,2,
+  7,6,8,
+  4,9,5,
+  13,11,12,
+  15,17,16
+};
 
-// CA board alone as master
-//  15,	14,	16,
-//  9,	2,	3,
-//  12,	10,	11,
-//  4,	6,	5,
-//  7,	13,	8
-  
-// CC Board 2 alone as master 
-  4, 5,	6,	// 7,
-  15,	16,	17  
-  };
-
+void Board(int boardNumber, int fromChannel, int toChannel)
+{
+  int startPin = (fromChannel - 1) * 3;
+  int endPin = (toChannel) * 3;
+  int runPin = 0;
+  for (runPin = startPin; runPin < endPin; runPin++)
+  {
+    Ports[runPin] += boardNumber * PINSPERBOARD;
+  }
+}
 
 void setup()
 {
+  int iChIndex;
+  // open comm with controlling PC  
   Serial.begin(115200); // 9600; 57600
   Serial.println();
-  Serial.println("Bus");
+  Serial.println("Bus on;");
   
-  Wire.begin(); // join i2c bus (address optional for master)
+  // prepare higher boards indices
+  //
+  Board(1,6,9); // from row 6 to 9 is slave board #1, row numbers start at 1
+  Board(2,10,14);
   
-  SoftPWMBegin();
-  
-  int iChIndex;
-  for (iChIndex = 0; iChIndex < sizeof(Ports); )
+  // report pin status
+  Serial.print("Pins: ");
+  for (iChIndex = 0; iChIndex < sizeof(Ports); iChIndex++)
   {
-    SoftPWMSet(Ports[iChIndex], 0);
-    SoftPWMSetFadeTime(Ports[iChIndex++], 100, 100);
-    
-    SoftPWMSet(Ports[iChIndex], 0);
-    SoftPWMSetFadeTime(Ports[iChIndex++], 100, 100);
-    
-    SoftPWMSet(Ports[iChIndex], 0);
-    SoftPWMSetFadeTime(Ports[iChIndex++], 100, 100);
+    Serial.print(Ports[iChIndex]);
+    Serial.print(',');
   }
   
+  // join i2c bus (address optional for master)
+  Wire.begin(); 
   
-//  int iPin = 0;
-//  for (iPin = 0; iPin < 18; iPin++)
-//  {
-//    SoftPWMSet(iPin, 0);
-//    SoftPWMSetFadeTime(iPin, 100, 100);
-//  }
+  // Setup Soft PWM
+  SoftPWMBegin();
+
+  for (iChIndex = 0; iChIndex < 15; iChIndex++)
+  {
+    SoftPWMSet(Ports[iChIndex], 0);
+    SoftPWMSetFadeTime(Ports[iChIndex], 100, 100);
+  }
+  // done
 }
 
 const byte dim_curve[] = {
@@ -246,15 +256,23 @@ void SetChannel(byte Channel, byte Value)
     Serial.print(Value);
     Serial.print(" ");
   }
-  // DmxSimple.write(channel, value);
   
-  if (Channel < 18) // pins 0 & 1 are for serial ; 2 to 13 and A0 to A3 (i.e. 14, 15, 16, 17) are also PWM ; above that then send to slaves
+  // workout what board needs to receive
+  //
+  int iBoard = 0;
+  while(Channel >= PINSPERBOARD)
+  {
+    iBoard++;
+    Channel -= PINSPERBOARD;
+  }
+  // pins 0 & 1 are for serial ; 2 to 13 and A0 to A3 (i.e. 14, 15, 16, 17) are PWM 
+  if (iBoard == 0) 
   {
     SoftPWMSet(Channel, Value);
   }
   else
   {
-    Wire.beginTransmission(4); // transmit to device #4    
+    Wire.beginTransmission(iBoard); // transmit to device #4    
     Wire.write(Channel);              // sends one byte  
     Wire.write(Value);              // sends one byte  
     Wire.endTransmission();    // stop transmitting

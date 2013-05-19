@@ -1,16 +1,14 @@
+// I2CBus receiver (Aether & Hemera)
+// This code is in the public domain
+
+// This code is based on the original source of 
 // Wire Slave Receiver
 // by Nicholas Zambetti <http://www.zambetti.com>
 
-// Demonstrates use of the Wire library
-// Receives data as an I2C/TWI slave device
-// Refer to the "Wire Master Writer" example for use with this
-
-// Created 29 March 2006
-
-// This example code is in the public domain.
-
 #include <SoftPWM.h>
 #include <Wire.h>
+
+#define BOARDNUMBER 2
 
 void setup()
 {
@@ -22,7 +20,7 @@ void setup()
     SoftPWMSetFadeTime(iPin, 100, 100);
   }
   
-  Wire.begin(4);                // join i2c bus with address #4
+  Wire.begin(BOARDNUMBER);      // join i2c bus with address #BOARDNUMBER
   Wire.onReceive(receiveEvent); // register event
 }
 
@@ -39,7 +37,6 @@ void receiveEvent(int howMany)
   {
     byte channel = Wire.read();    // receive byte 
     byte value = Wire.read();    // receive byte 
-    channel = channel - 18;  
     SoftPWMSet(channel, value);
   }
 }
