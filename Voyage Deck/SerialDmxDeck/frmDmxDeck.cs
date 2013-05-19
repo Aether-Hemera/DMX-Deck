@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace SerialDmxDeck
 {
@@ -38,20 +39,8 @@ namespace SerialDmxDeck
 
         private void PrepareInterface(List<int> channels)
         {
-            if (_comPort != null)
-            {
-                if (_comPort.IsOpen)
-                {
-                    _comPort.Close();
-                }
-            }
-
-            _comPort = new SerialPort();
-
             flowLayoutPanel1.SuspendLayout();
             flowLayoutPanel1.Controls.Clear();
-
-            
 
             for (int i = 0; i < channels.Count; i++)
             {
@@ -67,7 +56,20 @@ namespace SerialDmxDeck
             }
 
             flowLayoutPanel1.ResumeLayout();
+            OpenSerial();
+        }
 
+        private void OpenSerial()
+        {
+            if (_comPort != null)
+            {
+                if (_comPort.IsOpen)
+                {
+                    _comPort.Close();
+                }
+            }
+
+            _comPort = new SerialPort();
             if (cmbSerialSelect.Text != "")
             {
                 _comPort.DtrEnable = true;
@@ -125,20 +127,74 @@ namespace SerialDmxDeck
                 int size = _comPort.BytesToRead;
                 char[] vals = new char[size];
                 _comPort.Read(vals, 0, size);
-
-                string s = "";
-                foreach (char c in vals)
-                {
-                    s += Convert.ToString(c);
-                }
-                _databuffer += s;
+                _databuffer += new string(vals);
             }
+            ProcessBuffer();
         }
 
+        private void ProcessBuffer()
+        {
+            if (chkSerialShowText.Checked)
+            {
+                txtReport.Text += _databuffer;
+                _databuffer = "";
+            }
+            int idx;
+            while ((idx = _databuffer.IndexOf(';')) > -1)
+            {
+                string sub = _databuffer.Substring(0, idx);
+                _databuffer = _databuffer.Substring(idx + 1);
+                string[] split = sub.Split(new char[] { ',' });
+                if (split.Length == 5)
+                {
+                    try
+                    {
+                        int row = Convert.ToInt16(split[0]);
+                        int col = Convert.ToInt16(split[1]);
+                        int red = Convert.ToInt16(split[2]);
+                        int gre = Convert.ToInt16(split[3]);
+                        int blu = Convert.ToInt16(split[4]);
+                        voyageControl1.SetColor(row, col, Color.FromArgb(red, gre, blu));
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+                else if (split.Length == 3)
+                {
+                    try
+                    {
+                        int Univ = Convert.ToInt16(split[0]);
+                        int Channel = Convert.ToInt16(split[1]);
+                        int Value = Convert.ToInt16(split[2]);
+
+                        int Line = Channel / 75;
+                        int inLine = Channel % 75;
+                        int Pos = inLine / 3;
+                        int Col = inLine % 3;
+
+                        Line = Line + Univ * 4;
+
+                        voyageControl1.SetChannel(Line, Pos, Col, Value);
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+                else
+                {
+                    msg += sub;
+                    // 
+                }
+            }
+        }
+        string msg = "";
         private void timer1_Tick(object sender, EventArgs e)
         {
-            txtReport.Text += _databuffer;
-            _databuffer = "";
+            if (msg != string.Empty)
+                Debug.WriteLine(msg);
+            msg = string.Empty;
+            // ProcessBuffer();
         }
 
         private void cmdClear_Click(object sender, EventArgs e)
@@ -256,6 +312,11 @@ namespace SerialDmxDeck
                 string sending = txtCustomCommand.Text;
                 _comPort.Write(sending);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenSerial();
         }
     }
 }

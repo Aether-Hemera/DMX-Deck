@@ -12,6 +12,29 @@
 #include <Wire.h>
 #include <SoftPWM.h>
 
+byte Ports[] = {
+//  33,32,34,
+//  27,20,21,
+//  30,28,29,
+//  22,24,23,
+//  25,31,26,
+//  7,8,6,
+//  15,17,16,
+//  10,2,3,
+//  13,11,12,
+//  4,9,5
+
+// CA board alone as master
+//  15,	14,	16,
+//  9,	2,	3,
+//  12,	10,	11,
+//  4,	6,	5,
+//  7,	13,	8
+  
+// CC Board 2 alone as master 
+  4, 5,	6,	// 7,
+  15,	16,	17  
+  };
 
 
 void setup()
@@ -23,12 +46,27 @@ void setup()
   Wire.begin(); // join i2c bus (address optional for master)
   
   SoftPWMBegin();
-  int iPin = 0;
-  for (iPin = 0; iPin < 18; iPin++)
+  
+  int iChIndex;
+  for (iChIndex = 0; iChIndex < sizeof(Ports); )
   {
-    SoftPWMSet(iPin, 0);
-    SoftPWMSetFadeTime(iPin, 100, 100);
+    SoftPWMSet(Ports[iChIndex], 0);
+    SoftPWMSetFadeTime(Ports[iChIndex++], 100, 100);
+    
+    SoftPWMSet(Ports[iChIndex], 0);
+    SoftPWMSetFadeTime(Ports[iChIndex++], 100, 100);
+    
+    SoftPWMSet(Ports[iChIndex], 0);
+    SoftPWMSetFadeTime(Ports[iChIndex++], 100, 100);
   }
+  
+  
+//  int iPin = 0;
+//  for (iPin = 0; iPin < 18; iPin++)
+//  {
+//    SoftPWMSet(iPin, 0);
+//    SoftPWMSetFadeTime(iPin, 100, 100);
+//  }
 }
 
 const byte dim_curve[] = {
@@ -119,7 +157,7 @@ void getRGB(int hue, int sat, int val, int colors[3]) {
 
 
 int ColorHSV(int h, double s, double v, int rgb) {
-  //this is the algorithm to convert from RGB to HSV
+  //this is the algorithm to convert from HSV to RGB 
   double r=0; 
   double g=0; 
   double b=0;
@@ -199,19 +237,6 @@ int GotSerial = 0;
 int iCol = 0;
 int bEcho = 0;
 
-byte Ports[] = {
-  33,32,34,
-  27,20,21,
-  30,28,29,
-  22,24,23,
-  25,31,26,
-  7,8,6,
-  15,17,16,
-  10,2,3,
-  13,11,12,
-  4,9,5
-  };
-
 void SetChannel(byte Channel, byte Value)
 {
   if (bEcho == 1)
@@ -244,7 +269,7 @@ void DoColors()
   byte blue = (byte)ColorHSV(iCol, 1.0, 1.0, 3);
    
   int iChIndex = 0;
-  for (iChIndex = 0; iChIndex < 30; )
+  for (iChIndex = 0; iChIndex < sizeof(Ports); )
   {
     SetChannel(Ports[iChIndex++], red);
     SetChannel(Ports[iChIndex++], green);

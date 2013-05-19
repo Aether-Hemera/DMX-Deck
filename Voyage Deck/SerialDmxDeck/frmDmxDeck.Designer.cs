@@ -47,24 +47,32 @@
             this.txtCustomChannels = new System.Windows.Forms.TextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.txtCustomCommand = new System.Windows.Forms.TextBox();
             this.cmdSendCustom = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.chkSerialShowText = new System.Windows.Forms.CheckBox();
+            this.voyageControl1 = new SerialDmxDeck.VoyageControl();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tabControl2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -92,16 +100,14 @@
             // 
             // txtReport
             // 
-            this.txtReport.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtReport.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtReport.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtReport.Location = new System.Drawing.Point(108, 4);
+            this.txtReport.Location = new System.Drawing.Point(0, 0);
             this.txtReport.Margin = new System.Windows.Forms.Padding(4);
             this.txtReport.Multiline = true;
             this.txtReport.Name = "txtReport";
             this.txtReport.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtReport.Size = new System.Drawing.Size(1097, 280);
+            this.txtReport.Size = new System.Drawing.Size(1093, 229);
             this.txtReport.TabIndex = 5;
             // 
             // timer1
@@ -205,6 +211,7 @@
             this.tabControl2.Controls.Add(this.tabPage4);
             this.tabControl2.Controls.Add(this.tabPage5);
             this.tabControl2.Controls.Add(this.tabPage6);
+            this.tabControl2.Controls.Add(this.tabPage1);
             this.tabControl2.Location = new System.Drawing.Point(4, 3);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
@@ -261,7 +268,6 @@
             // 
             // tabPage6
             // 
-            this.tabPage6.Controls.Add(this.groupBox4);
             this.tabPage6.Controls.Add(this.groupBox3);
             this.tabPage6.Controls.Add(this.cmdSetAll);
             this.tabPage6.Location = new System.Drawing.Point(4, 25);
@@ -270,6 +276,30 @@
             this.tabPage6.TabIndex = 2;
             this.tabPage6.Text = "Commands";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // txtCustomCommand
+            // 
+            this.txtCustomCommand.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCustomCommand.Location = new System.Drawing.Point(4, 7);
+            this.txtCustomCommand.Margin = new System.Windows.Forms.Padding(4);
+            this.txtCustomCommand.Multiline = true;
+            this.txtCustomCommand.Name = "txtCustomCommand";
+            this.txtCustomCommand.Size = new System.Drawing.Size(981, 37);
+            this.txtCustomCommand.TabIndex = 6;
+            // 
+            // cmdSendCustom
+            // 
+            this.cmdSendCustom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSendCustom.Location = new System.Drawing.Point(993, 4);
+            this.cmdSendCustom.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdSendCustom.Name = "cmdSendCustom";
+            this.cmdSendCustom.Size = new System.Drawing.Size(96, 28);
+            this.cmdSendCustom.TabIndex = 5;
+            this.cmdSendCustom.Text = "Send";
+            this.cmdSendCustom.UseVisualStyleBackColor = true;
+            this.cmdSendCustom.Click += new System.EventHandler(this.cmdSendCustom_Click);
             // 
             // groupBox3
             // 
@@ -281,6 +311,28 @@
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Pattern values";
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.voyageControl1);
+            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1193, 256);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "Voyage";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(14, 6);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(92, 32);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox1
             // 
@@ -309,43 +361,48 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Panel2.Controls.Add(this.chkSerialShowText);
             this.splitContainer1.Panel2.Controls.Add(this.cmdClear);
             this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
-            this.splitContainer1.Panel2.Controls.Add(this.txtReport);
             this.splitContainer1.Size = new System.Drawing.Size(1209, 583);
             this.splitContainer1.SplitterDistance = 291;
             this.splitContainer1.TabIndex = 12;
             // 
-            // groupBox4
+            // chkSerialShowText
             // 
-            this.groupBox4.Controls.Add(this.txtCustomCommand);
-            this.groupBox4.Controls.Add(this.cmdSendCustom);
-            this.groupBox4.Location = new System.Drawing.Point(340, 13);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(307, 180);
-            this.groupBox4.TabIndex = 11;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Custom command";
+            this.chkSerialShowText.AutoSize = true;
+            this.chkSerialShowText.Location = new System.Drawing.Point(6, 175);
+            this.chkSerialShowText.Name = "chkSerialShowText";
+            this.chkSerialShowText.Size = new System.Drawing.Size(84, 21);
+            this.chkSerialShowText.TabIndex = 7;
+            this.chkSerialShowText.Text = "Show Rx";
+            this.chkSerialShowText.UseVisualStyleBackColor = true;
             // 
-            // txtCustomCommand
+            // voyageControl1
             // 
-            this.txtCustomCommand.Location = new System.Drawing.Point(7, 22);
-            this.txtCustomCommand.Margin = new System.Windows.Forms.Padding(4);
-            this.txtCustomCommand.Multiline = true;
-            this.txtCustomCommand.Name = "txtCustomCommand";
-            this.txtCustomCommand.Size = new System.Drawing.Size(293, 79);
-            this.txtCustomCommand.TabIndex = 6;
+            this.voyageControl1.Location = new System.Drawing.Point(112, 6);
+            this.voyageControl1.Name = "voyageControl1";
+            this.voyageControl1.Size = new System.Drawing.Size(303, 158);
+            this.voyageControl1.TabIndex = 1;
             // 
-            // cmdSendCustom
+            // splitContainer2
             // 
-            this.cmdSendCustom.Location = new System.Drawing.Point(7, 109);
-            this.cmdSendCustom.Margin = new System.Windows.Forms.Padding(4);
-            this.cmdSendCustom.Name = "cmdSendCustom";
-            this.cmdSendCustom.Size = new System.Drawing.Size(293, 28);
-            this.cmdSendCustom.TabIndex = 5;
-            this.cmdSendCustom.Text = "Send";
-            this.cmdSendCustom.UseVisualStyleBackColor = true;
-            this.cmdSendCustom.Click += new System.EventHandler(this.cmdSendCustom_Click);
+            this.splitContainer2.Location = new System.Drawing.Point(112, 4);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.cmdSendCustom);
+            this.splitContainer2.Panel1.Controls.Add(this.txtCustomCommand);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.txtReport);
+            this.splitContainer2.Size = new System.Drawing.Size(1093, 281);
+            this.splitContainer2.SplitterDistance = 48;
+            this.splitContainer2.TabIndex = 8;
             // 
             // frmDmxDeck
             // 
@@ -365,14 +422,19 @@
             this.tabPage6.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel1.PerformLayout();
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            this.splitContainer2.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -400,9 +462,13 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TextBox txtCustomCommand;
         private System.Windows.Forms.Button cmdSendCustom;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Button button1;
+        private VoyageControl voyageControl1;
+        private System.Windows.Forms.CheckBox chkSerialShowText;
+        private System.Windows.Forms.SplitContainer splitContainer2;
     }
 }
 
