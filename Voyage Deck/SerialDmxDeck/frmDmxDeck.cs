@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using ZedGraph;
 
 namespace SerialDmxDeck
 {
@@ -35,6 +38,12 @@ namespace SerialDmxDeck
             {
 
             }
+
+            cmbFilterType.Items.Clear();
+            cmbFilterType.Items.Add(@"Home & Commands");
+            cmbFilterType.Items.Add(@"Home");
+            cmbFilterType.Items.Add(@"Commands");
+            cmbFilterType.SelectedIndex = 0;
         }
 
         private void PrepareInterface(List<int> channels)
@@ -76,6 +85,7 @@ namespace SerialDmxDeck
                 _comPort.RtsEnable = true;
                 _comPort.PortName = cmbSerialSelect.Text;
                 _comPort.BaudRate = 115200;
+                // _comPort.BaudRate = 57600;
                 _comPort.DataBits = 8;
                 _comPort.Parity = Parity.None;
                 _comPort.StopBits = StopBits.One;
@@ -118,9 +128,9 @@ namespace SerialDmxDeck
             flowLayoutPanel1.Controls.Add(chControl);
         }
 
-        string _databuffer = "";
+        private string _databuffer = "";
 
-        void _comPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        private void _comPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             while (_comPort.BytesToRead > 0)
             {
@@ -136,7 +146,17 @@ namespace SerialDmxDeck
         {
             if (chkSerialShowText.Checked)
             {
-                txtReport.Text += _databuffer;
+                if (txtReport.InvokeRequired)
+                {
+                    txtReport.Invoke((MethodInvoker)delegate
+                    {
+                        txtReport.Text += _databuffer;
+                    });
+                }
+                else
+                    txtReport.Text += _databuffer;
+
+                
                 _databuffer = "";
             }
             int idx;
@@ -144,7 +164,7 @@ namespace SerialDmxDeck
             {
                 string sub = _databuffer.Substring(0, idx);
                 _databuffer = _databuffer.Substring(idx + 1);
-                string[] split = sub.Split(new char[] { ',' });
+                string[] split = sub.Split(new char[] {','});
                 if (split.Length == 5)
                 {
                     try
@@ -168,12 +188,12 @@ namespace SerialDmxDeck
                         int Channel = Convert.ToInt16(split[1]);
                         int Value = Convert.ToInt16(split[2]);
 
-                        int Line = Channel / 75;
-                        int inLine = Channel % 75;
-                        int Pos = inLine / 3;
-                        int Col = inLine % 3;
+                        int Line = Channel/75;
+                        int inLine = Channel%75;
+                        int Pos = inLine/3;
+                        int Col = inLine%3;
 
-                        Line = Line + Univ * 4;
+                        Line = Line + Univ*4;
 
                         voyageControl1.SetChannel(Line, Pos, Col, Value);
                     }
@@ -188,7 +208,9 @@ namespace SerialDmxDeck
                 }
             }
         }
-        string msg = "";
+
+        private string msg = "";
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (msg != string.Empty)
@@ -205,7 +227,7 @@ namespace SerialDmxDeck
         private void cmdSetCustomChannels_Click(object sender, EventArgs e)
         {
             List<int> channels = new List<int>();
-            string[] sArr = txtCustomChannels.Text.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] sArr = txtCustomChannels.Text.Split(new string[] {";"}, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var item in sArr)
             {
@@ -261,9 +283,9 @@ namespace SerialDmxDeck
             }
             catch (Exception)
             {
-                
+
             }
-            
+
         }
 
         private void cmdEchoOff_Click(object sender, EventArgs e)
@@ -274,9 +296,9 @@ namespace SerialDmxDeck
             }
             catch (Exception)
             {
-                
+
             }
-            
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -295,13 +317,13 @@ namespace SerialDmxDeck
             }
 
             for (int i = 0; i < flowLayoutPanel1.Controls.Count; i++)
-            {    
-                int iVal = i % channels.Count;
+            {
+                int iVal = i%channels.Count;
                 ISetOneValue ch = flowLayoutPanel1.Controls[i] as ISetOneValue;
                 if (ch != null)
                 {
                     ch.SetValue(channels[iVal]);
-                }   
+                }
             }
         }
 
@@ -317,6 +339,296 @@ namespace SerialDmxDeck
         private void button1_Click(object sender, EventArgs e)
         {
             OpenSerial();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string s = string.Format("@100,{0}:", nudMode.Value.ToString());
+            _comPort.Write(s);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            List<int> r = new List<int>();
+            List<int> g = new List<int>();
+            List<int> b = new List<int>();
+
+            Bitmap bmp = new Bitmap(@"C:\Users\Bonghi\Desktop\arizonaflag.bmp");
+            for (int row = 0; row < bmp.Height; row++)
+            {
+                for (int col = 0; col < bmp.Width; col++)
+                {
+                    var c = bmp.GetPixel(col, row);
+                    r.Add(c.R);
+                    g.Add(c.G);
+                    b.Add(c.B);
+                }
+            }
+            txtReport.Text = "";
+            txtReport.Text += r.Count + "\r\n\r\n";
+            // uncomment and fix
+            //txtReport.Text += string.Join(", ", r.ToArray()) + "\r\n\r\n";
+            //txtReport.Text += string.Join(", ", g.ToArray()) + "\r\n\r\n";
+            //txtReport.Text += string.Join(", ", b.ToArray()) + "\r\n\r\n";
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            _comPort.Write("@100,14:"); // scheme NO_CHANGE
+            _comPort.Write("@103,-1:"); // stay on this scheme
+        }
+
+        private void nudRow_ValueChanged(object sender, EventArgs e)
+        {
+            SendRowCol();
+        }
+
+        private void SendRowCol()
+        {
+            if (chkSendBack.Checked)
+            {
+                Docolor(btnDefaultColor.BackColor);
+            }
+            string s = string.Format("@104,{0},{1}:", nudRow.Value.ToString(), nudCol.Value.ToString());
+            _comPort.Write(s);
+            if (chkAutoColor.Checked)
+                Docolor(autoButton.BackColor);
+        }
+
+        private void nudCol_ValueChanged(object sender, EventArgs e)
+        {
+            SendRowCol();
+        }
+
+        private Button autoButton;
+
+        private void cmdSendColor_Click(object sender, EventArgs e)
+        {
+            var button = sender as Button;
+            if (button != null)
+            {
+                if (optionDefault.Checked)
+                {
+                    btnDefaultColor.BackColor = button.BackColor;
+                    optionAll.Checked = true;
+                    chkSendBack.Checked = true;
+                    return;   
+                }
+
+                autoButton = button;
+                
+                Docolor(button.BackColor);
+            }
+        }
+
+        private void Docolor(Color color)
+        {
+            string cmd = "109"; // all
+            if (optionRow.Checked)
+                cmd = "107";
+            else if (optionCol.Checked)
+                cmd = "108";
+            else if (optionCell.Checked)
+                cmd = "110";
+
+            string s = string.Format("@{3},{0},{1},{2}:", color.R, color.G, color.B, cmd);
+            _comPort.Write(s);
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            _comPort.Write("@103,-1:"); // stay on this scheme
+        }
+
+        private class Hit
+        {
+            public DateTime Date;
+            public string url;
+        }
+
+        List<Hit> hits = new List<Hit>();
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            hits = new List<Hit>();
+            txtReport.Text = "";
+            string pattern = @"\[(.*) \+0000\] ""GET (/api/command/\d*|/)";
+            RegexOptions regexOptions = RegexOptions.None;
+            Regex regex = new Regex(pattern, regexOptions);
+
+            DirectoryInfo directoryInfo = new DirectoryInfo(txtDirInfo.Text);
+            foreach (var filename in directoryInfo.GetFiles(@"access.log.*"))
+            {
+                if (filename.FullName.EndsWith(".gz"))
+                    continue;
+                txtReport.Text += filename.FullName + "\r\n";
+                Debug.WriteLine(filename.FullName);
+                using (StreamReader reader = new StreamReader(filename.FullName, Encoding.UTF8))
+                {
+                    while (!reader.EndOfStream)
+                    {
+                        var line = reader.ReadLine();
+
+                        foreach (Match match in regex.Matches(line))
+                        {
+                            if (match.Success)
+                            {
+                                string dts = match.Groups[1].Value;
+                                dts = dts.Substring(0, 11) + " " + dts.Substring(12);
+                                DateTime dt = Convert.ToDateTime(dts);
+                                hits.Add(new Hit() { Date = dt, url = match.Groups[2].Value });
+                            }
+                        }    
+                    }
+                }
+            }
+            txtReport.Text += "Done";
+        }
+
+        private IEnumerable<Hit> matchingHits()
+        {
+
+            foreach (var hit in hits)
+            {
+                if (chkDate1.Checked && chkDate2.Checked)
+                {
+                    if (dateParameter1.Value.Date > hit.Date.Date)
+                        continue;
+                    if (dateParameter2.Value.Date < hit.Date.Date)
+                        continue;
+                }
+                else if (chkDate1.Checked && dateParameter1.Value.Date != hit.Date.Date)
+                    continue;
+                if (cmbFilterType.SelectedItem.ToString() == @"Commands" && !hit.url.StartsWith("/api/"))
+                    continue;
+                if (cmbFilterType.SelectedItem.ToString() == @"Home" && hit.url != "/")
+                    continue;
+                
+                yield return hit;
+            }
+            
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            Dictionary<int, int> HourHits = new Dictionary<int, int>();
+
+            for (int i = 0; i < 24; i++)
+            {
+                HourHits.Add(i, 0);
+            }
+
+            foreach (var hit in matchingHits())
+            {
+                HourHits[hit.Date.Hour]++;
+            }
+
+            var sb = new StringBuilder();
+            foreach (var hour in HourHits)
+            {
+                sb.AppendFormat("Hour:\t{0}\t{1}\r\n", hour.Key, hour.Value);
+            }
+            var tmpL = new List<string>();
+            var tmpV = new List<double>();
+
+            txtLogReport.Text = sb.ToString();
+            for (var i = 0; i < 24; i++)
+            {
+                tmpL.Add(i.ToString());
+                tmpV.Add(HourHits[i]);
+            }
+            var labels = tmpL.ToArray();
+            var values = tmpV.ToArray();
+            CreateGraph(zedGraphControl1, labels, values);
+        }
+
+
+
+
+        private void CreateGraph(ZedGraphControl zg1, string[] labels, double[] values)
+        {
+            // get a reference to the GraphPane
+            GraphPane myPane = zg1.GraphPane;
+
+            // Set the Titles
+            myPane.Title = "My Test Bar Graph";
+            myPane.XAxis.Title = "Label";
+            myPane.YAxis.Title = "My Y Axis";
+            myPane.CurveList.Clear();
+            
+            
+            // Generate a red bar with "Curve 1" in the legend
+            BarItem myBar = myPane.AddBar("Hits", null, values, Color.Red);
+            myBar.Bar.Fill = new Fill(Color.Red, Color.White, Color.Red);
+       
+            // Set the XAxis labels
+            myPane.XAxis.Scale.TextLabels = labels;
+            myPane.XAxis.Type = AxisType.Text;
+
+
+            // Tell ZedGraph to refigure the
+            // axes since the data have changed
+            zg1.AxisChange();
+            zg1.ZoomOutAll(myPane);
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            var dateHits = new Dictionary<DateTime, int>();
+
+            DateTime minTime = DateTime.MaxValue;
+            DateTime maxTime = DateTime.MinValue;
+
+
+            foreach (var hit in matchingHits())
+            {
+                if (minTime > hit.Date.Date)
+                    minTime = hit.Date.Date;
+                if (maxTime < hit.Date.Date)
+                    maxTime = hit.Date.Date;
+
+                if (!dateHits.ContainsKey(hit.Date.Date))
+                    dateHits.Add(hit.Date.Date, 0);
+
+                dateHits[hit.Date.Date]++;
+            }
+
+            var tmpL = new List<string>();
+            var tmpV = new List<double>();
+
+            StringBuilder sb = new StringBuilder();
+
+            for (var runningDate = minTime; runningDate <= maxTime; runningDate = runningDate.AddDays(1))
+            {
+                var label = runningDate.ToString();
+                double val = 0;
+                if (dateHits.ContainsKey(runningDate.Date))
+                    val = dateHits[runningDate.Date];
+
+                sb.AppendFormat("day:\t{0}\t{1}\r\n", label, val);
+
+                tmpL.Add(label);
+                tmpV.Add(val);
+            }
+            txtLogReport.Text = sb.ToString();
+            CreateGraph(zedGraphControl1, tmpL.ToArray(), tmpV.ToArray());
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        void ResetExceptionState(Control control)
+        {
+            typeof(Control).InvokeMember("SetState", BindingFlags.NonPublic |
+              BindingFlags.InvokeMethod | BindingFlags.Instance, null,
+              control, new object[] { 0x400000, false });
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            ResetExceptionState(voyageControl1);
         }
     }
 }

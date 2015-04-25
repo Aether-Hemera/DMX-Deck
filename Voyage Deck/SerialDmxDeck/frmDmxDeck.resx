@@ -112,12 +112,38 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
+  </metadata>
+  <data name="txtModeInfo.Text" xml:space="preserve">
+    <value>#define MODE_COLORCHECK (0)
+#define MODE_WHEEL (1)
+#define MODE_RAINBOW_ROW (2)
+#define MODE_RAINBOW_COL (3)
+#define MODE_ROW (4)
+#define MODE_COL (5)
+#define MODE_WAVE (6)
+#define MODE_TXT_VOYAGE (7)
+#define MODE_HEART (8)
+#define MODE_FIREWORKS (9)
+#define MODE_STARS (10)
+#define MODE_LIGHTSOFF (11)
+#define MODE_UNIFORMCOLOUR (12)
+#define MODE_FLUIDITY (13)
+#define MODE_NOCHANGE (14)
+#define MODE_USFLAG (15)
+#define MODE_ARIZFLAG (16)
+#define MODE_ARIZSUNSET (17)
+#define MODE_EUSKADIFLAG (18) 
+#define MODE_BILBAOFLAG (19)
+#define MODE_SPANISHFLAG (20)</value>
+  </data>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>56</value>
   </metadata>
 </root>

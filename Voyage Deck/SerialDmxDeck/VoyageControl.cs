@@ -11,28 +11,45 @@ namespace SerialDmxDeck
 {
     public partial class VoyageControl : UserControl
     {
+        int Rows = 0;
+        int Cols = 0;
+
         public VoyageControl()
         {
             InitializeComponent();
-            Boats = new Color[12, 25];
+            Boats = new Color[Rows, Cols];
             refresh = DateTime.Now;
+        }
 
-            for (int row = 0; row < 12; row++)
+        private void PrepareArray()
+        {
+            Boats = new Color[Rows,Cols];
+            for (int row = 0; row < Rows; row++)
             {
-                for (int col = 0; col < 25; col++)
+                for (int col = 0; col < Cols; col++)
                 {
-                    Boats[row, col] = Color.Black;
+                    Boats[row, col] = Color.White;
                 }
             }
+        }
 
+        protected T[,] ResizeArray<T>(T[,] original, int x, int y)
+        {
+            T[,] newArray = new T[x, y];
+            int minX = Math.Min(original.GetLength(0), newArray.GetLength(0));
+            int minY = Math.Min(original.GetLength(1), newArray.GetLength(1));
+
+            for (int i = 0; i < minY; ++i)
+                Array.Copy(original, i * original.GetLength(0), newArray, i * newArray.GetLength(0), minX);
+            return newArray;
         }
 
         Color[,] Boats;
 
         const int boxTotWidth = 12;
-        const int boxTotHeight = 10;
+        const int boxTotHeight = 12;
         const int boxWidth = 10;
-        const int boxHeight = 8;
+        const int boxHeight = 10;
 
         DateTime refresh;
 
@@ -45,22 +62,58 @@ namespace SerialDmxDeck
             }
         }
 
+        public enum Order
+        {
+            Normal,
+            Inverted
+        }
+
+
+        private Order _rowOrder = Order.Inverted;
+
+        public Order RowOrder
+        {
+            get { return _rowOrder; }
+            set { _rowOrder = value; }
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
-            for (int row = 0; row < 12; row++)
+            for (int row = 0; row < Rows; row++)
             {
-                for (int col = 0; col < 25; col++)
+                for (int col = 0; col < Cols; col++)
                 {
-                    Brush b = new SolidBrush(Boats[row, col]);
-                    e.Graphics.FillRectangle(b, col * boxTotWidth, row * boxTotHeight, boxWidth, boxHeight);
+                    if (Boats[row, col] != null)
+                    {
+                        var x = col*boxTotWidth;
+                        var y = row*boxTotHeight;
+
+                        if (RowOrder == Order.Inverted)
+                            y = this.Height - y - boxHeight;
+
+                        Brush b = new SolidBrush(Boats[row, col]);
+                        e.Graphics.FillRectangle(b, x ,y , boxWidth, boxHeight);
+                    }
                 }
             }
-
             base.OnPaint(e);
         }
 
         public void SetColor(int row, int col, Color color)
         {
+            bool bResize = false;
+            if (row >= Rows)
+            {
+                Rows = row + 1;
+                bResize = true;
+            }
+            if (col >= Cols)
+            {
+                Cols = col + 1;
+                bResize = true;
+            }
+            if (bResize)
+                PrepareArray();
             Boats[row, col] = color;
             this.Invalidate();
         }
