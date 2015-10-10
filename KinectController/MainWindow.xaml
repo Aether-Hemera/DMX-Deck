@@ -1,6 +1,7 @@
 ﻿<Window x:Class="Microsoft.Samples.Kinect.SkeletonBasics.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wf="clr-namespace:SerialDmxDeck;assembly=SerialDmxDeck"
         Title="Skeleton Basics" Width="1200" Height="800"  Loaded="WindowLoaded" Closing="WindowClosing">
 
     <Window.Resources>
@@ -23,12 +24,12 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Image Grid.Row="0" Name="Image" Width="640" Height="480" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    <Button Grid.Row="1" Content="Pulsante" />
-                </Grid>
-                
                     
-                
-                
+                    <WindowsFormsHost Grid.Row="1" >
+                        
+                    </WindowsFormsHost>
+                </Grid>
+               
             </TabItem>
         </TabControl>
         

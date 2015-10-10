@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SerialDmxDeck", "SerialDmxD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkeletonBasics-WPF", "..\KinectController\SkeletonBasics-WPF.csproj", "{8121846D-923E-4BB0-8647-30DA753D156E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SkeletonWinforms", "SkeletonWinforms\SkeletonWinforms.csproj", "{7AB93FF4-0681-4412-86EF-E1839F8D0804}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,16 @@ Global
 		{8121846D-923E-4BB0-8647-30DA753D156E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{8121846D-923E-4BB0-8647-30DA753D156E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8121846D-923E-4BB0-8647-30DA753D156E}.Release|x86.ActiveCfg = Release|Any CPU
+		{7AB93FF4-0681-4412-86EF-E1839F8D0804}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AB93FF4-0681-4412-86EF-E1839F8D0804}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AB93FF4-0681-4412-86EF-E1839F8D0804}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7AB93FF4-0681-4412-86EF-E1839F8D0804}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7AB93FF4-0681-4412-86EF-E1839F8D0804}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7AB93FF4-0681-4412-86EF-E1839F8D0804}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AB93FF4-0681-4412-86EF-E1839F8D0804}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AB93FF4-0681-4412-86EF-E1839F8D0804}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7AB93FF4-0681-4412-86EF-E1839F8D0804}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7AB93FF4-0681-4412-86EF-E1839F8D0804}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
