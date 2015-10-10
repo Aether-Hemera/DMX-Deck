@@ -81,9 +81,10 @@ namespace SerialDmxDeck
             _comPort = new SerialPort();
             if (cmbSerialSelect.Text != "")
             {
+                var portName = cmbSerialSelect.Text.Substring(0, 4);
                 _comPort.DtrEnable = true;
                 _comPort.RtsEnable = true;
-                _comPort.PortName = cmbSerialSelect.Text;
+                _comPort.PortName = portName;
                 _comPort.BaudRate = 115200;
                 // _comPort.BaudRate = 57600;
                 _comPort.DataBits = 8;
@@ -629,6 +630,11 @@ namespace SerialDmxDeck
         private void button15_Click(object sender, EventArgs e)
         {
             ResetExceptionState(voyageControl1);
+        }
+
+        private void txtModeInfo_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

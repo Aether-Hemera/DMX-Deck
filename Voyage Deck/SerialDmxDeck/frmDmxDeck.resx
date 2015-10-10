@@ -121,7 +121,8 @@
     <value>17, 17</value>
   </metadata>
   <data name="txtModeInfo.Text" xml:space="preserve">
-    <value>#define MODE_COLORCHECK (0)
+    <value>#define MODE_COLORCHECK_COL (0)
+#define MODE_COLORCHECK_ROW (21)
 #define MODE_WHEEL (1)
 #define MODE_RAINBOW_ROW (2)
 #define MODE_RAINBOW_COL (3)
@@ -141,7 +142,8 @@
 #define MODE_ARIZSUNSET (17)
 #define MODE_EUSKADIFLAG (18) 
 #define MODE_BILBAOFLAG (19)
-#define MODE_SPANISHFLAG (20)</value>
+#define MODE_SPANISHFLAG (20)
+</value>
   </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>56</value>

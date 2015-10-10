@@ -77,6 +77,7 @@
             this.txtModeInfo = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.voyageControl1 = new SerialDmxDeck.VoyageControl();
             this.button7 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.bControl = new WinFormsGraphicsDevice.BonghiControl();
@@ -100,7 +101,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.chkSerialShowText = new System.Windows.Forms.CheckBox();
-            this.voyageControl1 = new SerialDmxDeck.VoyageControl();
             this.tabControl2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -371,7 +371,7 @@
             // 
             // button15
             // 
-            this.button15.Location = new System.Drawing.Point(769, 153);
+            this.button15.Location = new System.Drawing.Point(769, 196);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(138, 48);
             this.button15.TabIndex = 9;
@@ -405,7 +405,7 @@
             this.groupBox5.Controls.Add(this.nudCol);
             this.groupBox5.Controls.Add(this.label1);
             this.groupBox5.Controls.Add(this.nudRow);
-            this.groupBox5.Location = new System.Drawing.Point(151, 153);
+            this.groupBox5.Location = new System.Drawing.Point(151, 187);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(612, 108);
             this.groupBox5.TabIndex = 7;
@@ -630,6 +630,7 @@
             this.txtModeInfo.Size = new System.Drawing.Size(281, 296);
             this.txtModeInfo.TabIndex = 3;
             this.txtModeInfo.Text = resources.GetString("txtModeInfo.Text");
+            this.txtModeInfo.TextChanged += new System.EventHandler(this.txtModeInfo_TextChanged);
             // 
             // button3
             // 
@@ -652,6 +653,17 @@
             this.button1.Text = "Open Serial";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // voyageControl1
+            // 
+            this.voyageControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.voyageControl1.Location = new System.Drawing.Point(151, 10);
+            this.voyageControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.voyageControl1.Name = "voyageControl1";
+            this.voyageControl1.RowOrder = SerialDmxDeck.VoyageControl.Order.Normal;
+            this.voyageControl1.Size = new System.Drawing.Size(851, 170);
+            this.voyageControl1.TabIndex = 1;
             // 
             // button7
             // 
@@ -962,17 +974,6 @@
             this.chkSerialShowText.TabIndex = 7;
             this.chkSerialShowText.Text = "Show Rx";
             this.chkSerialShowText.UseVisualStyleBackColor = true;
-            // 
-            // voyageControl1
-            // 
-            this.voyageControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.voyageControl1.Location = new System.Drawing.Point(151, 10);
-            this.voyageControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.voyageControl1.Name = "voyageControl1";
-            this.voyageControl1.RowOrder = SerialDmxDeck.VoyageControl.Order.Normal;
-            this.voyageControl1.Size = new System.Drawing.Size(888, 126);
-            this.voyageControl1.TabIndex = 1;
             // 
             // frmDmxDeck
             // 
