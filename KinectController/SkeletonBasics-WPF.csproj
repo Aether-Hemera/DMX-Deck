@@ -107,6 +107,12 @@
     <Resource Include="Images\UncheckedHover.png" />
     <Resource Include="Images\UncheckedNormal.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Voyage Deck\SerialDmxDeck\SerialDmxDeck.csproj">
+      <Project>{0c79ba1d-a80b-4d0c-86ee-c51e128dd5ff}</Project>
+      <Name>SerialDmxDeck</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

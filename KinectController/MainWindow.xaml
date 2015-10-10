@@ -15,9 +15,20 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TabControl Grid.Row="0" >
-            <TabItem Header="Kinect skeletons">
-                <Image Name="Image" Width="640" Height="480" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <TabControl Grid.Row="0" Background="DarkGray" >
+            <TabItem Header="Kinect skeletons" Background="DarkGray">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="0" Name="Image" Width="640" Height="480" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    <Button Grid.Row="1" Content="Pulsante" />
+                </Grid>
+                
+                    
+                
+                
             </TabItem>
         </TabControl>
         
