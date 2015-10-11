@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -181,6 +182,8 @@ namespace SkeletonWinforms
 
         // private Skeleton[] skeletons;
 
+        private Stopwatch stopwatch;
+
         /// <summary>
         /// Event handler for Kinect sensor's SkeletonFrameReady event
         /// </summary>
@@ -188,8 +191,17 @@ namespace SkeletonWinforms
         /// <param name="e">event arguments</param>
         private void SensorSkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
         {
+            if (stopwatch == null)
+            {
+                stopwatch = new Stopwatch();
+                stopwatch.Start();
+                return;
+            }
+            if (stopwatch.ElapsedMilliseconds < 100)
+                return;           
+            stopwatch.Restart();
+            
             Skeleton[] skeletons = new Skeleton[0];
-
             using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
             {
                 if (skeletonFrame != null)
@@ -198,7 +210,11 @@ namespace SkeletonWinforms
                     skeletonFrame.CopySkeletonDataTo(skeletons);
                 }
             }
-            
+            if (skeletons.Length == 0)
+            {
+                label1.Text = "<>";
+                return;
+            }
             List<ArmInWave> arms = new List<ArmInWave>();
 
             foreach (var skeleton in skeletons)
@@ -234,19 +250,28 @@ namespace SkeletonWinforms
                 // Left Arm
 
             }
-            List<ArmInWave> SortedList = arms.OrderBy(o => o.xOnScreen).ToList();
-
-            StringBuilder txt = new StringBuilder();
-            txt.Append("<");
-            foreach (var arm in SortedList)
+            if (!arms.Any())
             {
+                label1.Text = "<>";
+                return;
+            }
+
+            var sortedList = arms.OrderBy(o => o.xOnScreen).ToList();
+            
+            var txt = new StringBuilder();
+            var txtCommand = new StringBuilder();
+            txt.Append("<");
+            
+            foreach (var arm in sortedList)
+            {
+                txtCommand.Append("," + Convert.ToInt32((arm.elevationRatio + 1)*180));
                 txt.Append(arm.Visual);
             }
             txt.Append(">");
 
             label1.Text = txt.ToString();
+            voyageCommunicationControl1.Send(string.Format("@111,{0}{1}:", sortedList.Count, txtCommand.ToString()));
             return;
-            
 
             MethodInvoker methodInvokerDelegate = delegate()
             {

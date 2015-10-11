@@ -36,10 +36,13 @@
             this.txtReport = new System.Windows.Forms.TextBox();
             this.chkSerialShowText = new System.Windows.Forms.CheckBox();
             this.voyageControl1 = new SerialDmxDeck.VoyageControl();
+            this.nudMode = new System.Windows.Forms.NumericUpDown();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMode)).BeginInit();
             this.SuspendLayout();
             // 
             // cmbSerialSelect
@@ -139,14 +142,35 @@
             this.voyageControl1.Location = new System.Drawing.Point(13, 12);
             this.voyageControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.voyageControl1.Name = "voyageControl1";
-            this.voyageControl1.RowOrder = SerialDmxDeck.VoyageControl.Order.Normal;
+            this.voyageControl1.RowOrder = SerialDmxDeck.VoyageControl.Order.Inverted;
             this.voyageControl1.Size = new System.Drawing.Size(615, 170);
             this.voyageControl1.TabIndex = 5;
+            // 
+            // nudMode
+            // 
+            this.nudMode.Location = new System.Drawing.Point(13, 312);
+            this.nudMode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nudMode.Name = "nudMode";
+            this.nudMode.Size = new System.Drawing.Size(128, 22);
+            this.nudMode.TabIndex = 14;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(13, 279);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(128, 27);
+            this.button3.TabIndex = 13;
+            this.button3.Text = "Send mode";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // VoyageCommunicationControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.nudMode);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.chkSerialShowText);
             this.Controls.Add(this.splitContainer2);
             this.Controls.Add(this.cmbSerialSelect);
@@ -160,6 +184,7 @@
             this.splitContainer2.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nudMode)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -175,6 +200,8 @@
         private System.Windows.Forms.TextBox txtCustomCommand;
         private System.Windows.Forms.TextBox txtReport;
         private System.Windows.Forms.CheckBox chkSerialShowText;
+        private System.Windows.Forms.NumericUpDown nudMode;
+        private System.Windows.Forms.Button button3;
 
     }
 }

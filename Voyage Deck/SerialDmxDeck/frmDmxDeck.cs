@@ -636,5 +636,10 @@ namespace SerialDmxDeck
         {
 
         }
+
+        private void nudMode_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

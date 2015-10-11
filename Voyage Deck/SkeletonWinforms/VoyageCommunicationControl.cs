@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
+using System.Globalization;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -153,11 +154,23 @@ namespace SerialDmxDeck
 
         private void cmdSendCustom_Click(object sender, EventArgs e)
         {
-            if (_comPort != null && _comPort.IsOpen)
-            {
-                string sending = txtCustomCommand.Text;
-                _comPort.Write(sending);
-            }
+            if (_comPort == null || !_comPort.IsOpen) 
+                return;
+            string sending = txtCustomCommand.Text;
+            _comPort.Write(sending);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var s = string.Format("@100,{0}:", nudMode.Value.ToString(CultureInfo.InvariantCulture));
+            _comPort.Write(s);
+        }
+
+        public void Send(string commnad)
+        {
+            if (_comPort == null || !_comPort.IsOpen)
+                return;
+            _comPort.Write(commnad);
         }
     }
 }

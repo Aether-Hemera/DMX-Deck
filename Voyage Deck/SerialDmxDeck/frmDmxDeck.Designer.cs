@@ -77,7 +77,6 @@
             this.txtModeInfo = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.voyageControl1 = new SerialDmxDeck.VoyageControl();
             this.button7 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.bControl = new WinFormsGraphicsDevice.BonghiControl();
@@ -101,6 +100,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.chkSerialShowText = new System.Windows.Forms.CheckBox();
+            this.voyageControl1 = new SerialDmxDeck.VoyageControl();
             this.tabControl2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -617,6 +617,7 @@
             this.nudMode.Name = "nudMode";
             this.nudMode.Size = new System.Drawing.Size(128, 22);
             this.nudMode.TabIndex = 4;
+            this.nudMode.ValueChanged += new System.EventHandler(this.nudMode_ValueChanged);
             // 
             // txtModeInfo
             // 
@@ -653,17 +654,6 @@
             this.button1.Text = "Open Serial";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // voyageControl1
-            // 
-            this.voyageControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.voyageControl1.Location = new System.Drawing.Point(151, 10);
-            this.voyageControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.voyageControl1.Name = "voyageControl1";
-            this.voyageControl1.RowOrder = SerialDmxDeck.VoyageControl.Order.Normal;
-            this.voyageControl1.Size = new System.Drawing.Size(851, 170);
-            this.voyageControl1.TabIndex = 1;
             // 
             // button7
             // 
@@ -974,6 +964,17 @@
             this.chkSerialShowText.TabIndex = 7;
             this.chkSerialShowText.Text = "Show Rx";
             this.chkSerialShowText.UseVisualStyleBackColor = true;
+            // 
+            // voyageControl1
+            // 
+            this.voyageControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.voyageControl1.Location = new System.Drawing.Point(151, 10);
+            this.voyageControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.voyageControl1.Name = "voyageControl1";
+            this.voyageControl1.RowOrder = SerialDmxDeck.VoyageControl.Order.Normal;
+            this.voyageControl1.Size = new System.Drawing.Size(851, 170);
+            this.voyageControl1.TabIndex = 1;
             // 
             // frmDmxDeck
             // 
