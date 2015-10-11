@@ -206,6 +206,7 @@ namespace SkeletonWinforms
             {
                 if (skeletonFrame != null)
                 {
+                    
                     skeletons = new Skeleton[skeletonFrame.SkeletonArrayLength];
                     skeletonFrame.CopySkeletonDataTo(skeletons);
                 }
@@ -215,10 +216,13 @@ namespace SkeletonWinforms
                 label1.Text = "<>";
                 return;
             }
+
             List<ArmInWave> arms = new List<ArmInWave>();
 
             foreach (var skeleton in skeletons)
             {
+                
+
                 var leftArm = getArm(skeleton, JointType.ShoulderLeft, JointType.ElbowLeft, JointType.HandLeft);
                 if (leftArm != null)
                 {
@@ -264,7 +268,10 @@ namespace SkeletonWinforms
             
             foreach (var arm in sortedList)
             {
-                txtCommand.Append("," + Convert.ToInt32((arm.elevationRatio + 1)*180));
+                var value = Convert.ToInt32((arm.elevationRatio*120));
+                if (value < 0)
+                    value += 360;
+                txtCommand.Append("," + value); 
                 txt.Append(arm.Visual);
             }
             txt.Append(">");
