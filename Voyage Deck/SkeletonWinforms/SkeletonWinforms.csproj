@@ -11,6 +11,7 @@
     <AssemblyName>SkeletonWinforms</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -53,6 +54,18 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VoyageCommunicationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VoyageCommunicationControl.Designer.cs">
+      <DependentUpon>VoyageCommunicationControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VoyageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VoyageControl.Designer.cs">
+      <DependentUpon>VoyageControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -64,7 +77,15 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="VoyageCommunicationControl.resx">
+      <DependentUpon>VoyageCommunicationControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VoyageControl.resx">
+      <DependentUpon>VoyageControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -74,12 +95,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SerialDmxDeck\SerialDmxDeck.csproj">
-      <Project>{0c79ba1d-a80b-4d0c-86ee-c51e128dd5ff}</Project>
-      <Name>SerialDmxDeck</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

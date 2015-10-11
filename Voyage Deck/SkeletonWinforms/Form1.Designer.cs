@@ -32,12 +32,13 @@
             this.checkBoxSeatedMode = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.voyageCommunicationControl1 = new SerialDmxDeck.VoyageCommunicationControl();
             this.SuspendLayout();
             // 
             // statusBarText
             // 
             this.statusBarText.AutoSize = true;
-            this.statusBarText.Location = new System.Drawing.Point(22, 564);
+            this.statusBarText.Location = new System.Drawing.Point(219, 148);
             this.statusBarText.Name = "statusBarText";
             this.statusBarText.Size = new System.Drawing.Size(46, 17);
             this.statusBarText.TabIndex = 0;
@@ -46,7 +47,7 @@
             // checkBoxSeatedMode
             // 
             this.checkBoxSeatedMode.AutoSize = true;
-            this.checkBoxSeatedMode.Location = new System.Drawing.Point(19, 533);
+            this.checkBoxSeatedMode.Location = new System.Drawing.Point(35, 147);
             this.checkBoxSeatedMode.Name = "checkBoxSeatedMode";
             this.checkBoxSeatedMode.Size = new System.Drawing.Size(98, 21);
             this.checkBoxSeatedMode.TabIndex = 1;
@@ -72,11 +73,19 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "label1";
             // 
+            // voyageCommunicationControl1
+            // 
+            this.voyageCommunicationControl1.Location = new System.Drawing.Point(35, 185);
+            this.voyageCommunicationControl1.Name = "voyageCommunicationControl1";
+            this.voyageCommunicationControl1.Size = new System.Drawing.Size(961, 490);
+            this.voyageCommunicationControl1.TabIndex = 4;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1321, 606);
+            this.ClientSize = new System.Drawing.Size(1321, 726);
+            this.Controls.Add(this.voyageCommunicationControl1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.checkBoxSeatedMode);
@@ -96,6 +105,7 @@
         private System.Windows.Forms.CheckBox checkBoxSeatedMode;
         private System.Windows.Forms.Panel pictureBox1;
         private System.Windows.Forms.Label label1;
+        private SerialDmxDeck.VoyageCommunicationControl voyageCommunicationControl1;
     }
 }
 
