@@ -30,7 +30,6 @@
         {
             this.statusBarText = new System.Windows.Forms.Label();
             this.checkBoxSeatedMode = new System.Windows.Forms.CheckBox();
-            this.pictureBox1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.voyageCommunicationControl1 = new SerialDmxDeck.VoyageCommunicationControl();
             this.SuspendLayout();
@@ -54,14 +53,6 @@
             this.checkBoxSeatedMode.Text = "checkBox1";
             this.checkBoxSeatedMode.UseVisualStyleBackColor = true;
             this.checkBoxSeatedMode.CheckedChanged += new System.EventHandler(this.checkBoxSeatedMode_CheckedChanged);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(1147, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(147, 289);
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             // 
             // label1
             // 
@@ -87,7 +78,6 @@
             this.ClientSize = new System.Drawing.Size(1321, 726);
             this.Controls.Add(this.voyageCommunicationControl1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.checkBoxSeatedMode);
             this.Controls.Add(this.statusBarText);
             this.Name = "Form1";
@@ -103,7 +93,6 @@
 
         private System.Windows.Forms.Label statusBarText;
         private System.Windows.Forms.CheckBox checkBoxSeatedMode;
-        private System.Windows.Forms.Panel pictureBox1;
         private System.Windows.Forms.Label label1;
         private SerialDmxDeck.VoyageCommunicationControl voyageCommunicationControl1;
     }

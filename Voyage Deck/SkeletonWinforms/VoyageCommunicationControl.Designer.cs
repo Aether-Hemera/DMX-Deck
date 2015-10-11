@@ -142,7 +142,7 @@
             this.voyageControl1.Location = new System.Drawing.Point(13, 12);
             this.voyageControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.voyageControl1.Name = "voyageControl1";
-            this.voyageControl1.RowOrder = SerialDmxDeck.VoyageControl.Order.Inverted;
+            this.voyageControl1.RowOrder = SerialDmxDeck.VoyageControl.Order.Normal;
             this.voyageControl1.Size = new System.Drawing.Size(615, 170);
             this.voyageControl1.TabIndex = 5;
             // 
