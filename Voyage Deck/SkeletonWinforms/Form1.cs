@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -75,11 +76,13 @@ namespace SkeletonWinforms
             }
         }
 
-        
+        private int LastSentMode = -1;
 
         // private Skeleton[] skeletons;
 
         private Stopwatch stopwatch;
+
+        private int minTime = 100;
 
         /// <summary>
         /// Event handler for Kinect sensor's SkeletonFrameReady event
@@ -94,9 +97,10 @@ namespace SkeletonWinforms
                 stopwatch.Start();
                 return;
             }
-            if (stopwatch.ElapsedMilliseconds < 100)
+            if (stopwatch.ElapsedMilliseconds < minTime)
                 return;           
             stopwatch.Restart();
+            minTime = 100;
             
             Skeleton[] skeletons = new Skeleton[0];
             using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
@@ -129,7 +133,34 @@ namespace SkeletonWinforms
                 label1.Text = "<>";
                 return;
             }
+            var sortedList = okAnalysed.ToList();
 
+            // check for OnHead
+            foreach (var skel in sortedList)
+            {
+                if (skel.OnHead())
+                {
+                    label1.Text = "OnHead";
+                    EnsureMode(9);
+                    minTime = 5000;
+                    return;
+                }
+            }
+
+            // check for SelfHand
+            foreach (var skel in sortedList)
+            {
+                if (skel.SelfHand())
+                {
+                    label1.Text = "SelfHand";
+                    voyageCommunicationControl1.Send("@105,255,255,255:"); // set white
+                    EnsureMode(12);
+                    minTime = 2000;
+                    return;
+                }
+            }
+
+            // check for InHands
             for (var i = 0; i < okAnalysed.Count; i++)
             {
                 for (var iNext = i + 1; iNext < okAnalysed.Count; iNext++)
@@ -137,27 +168,44 @@ namespace SkeletonWinforms
                     if (!okAnalysed[i].InHand(okAnalysed[iNext])) 
                         continue;
                     label1.Text = "InHand";
+                    EnsureMode(8);
+                    minTime = 3000;
                     return;
                 }
             }
 
+            
 
-            var sortedList = okAnalysed.ToList();
-            
-            var txt = new StringBuilder();
+            // visual on screen
+            var visualOnScreen = new StringBuilder();
+            visualOnScreen.Append("<");
+            foreach (var arm in sortedList)
+            {
+                visualOnScreen.Append(arm.Visual());
+            }
+            visualOnScreen.Append(">");
+            label1.Text = visualOnScreen.ToString();
+
+
+            // send color command
+            // todo: get the closer to the kinect only
             var txtCommand = new StringBuilder();
-            txt.Append("<");
-            
             foreach (var arm in sortedList)
             {
                 txtCommand.Append("," + ElevationToColor(arm.LeftArmElevationRatio));
-                txtCommand.Append("," + ElevationToColor(arm.RightArmElevationRatio)); 
-                txt.Append(arm.Visual());
+                txtCommand.Append("," + ElevationToColor(arm.RightArmElevationRatio));
             }
-            txt.Append(">");
+            EnsureMode(22);
+            voyageCommunicationControl1.Send(string.Format("@111,2{0}:", txtCommand)); // 2 parameters only
 
-            label1.Text = txt.ToString();
-            voyageCommunicationControl1.Send(string.Format("@111,{0}{1}:", sortedList.Count, txtCommand.ToString()));
+        }
+
+        private void EnsureMode(int i)
+        {
+            if (LastSentMode != i)
+            {
+                voyageCommunicationControl1.EnsureMode(i); 
+            }
         }
 
         private static int ElevationToColor(double v)
@@ -184,6 +232,19 @@ namespace SkeletonWinforms
             {
                 sensor.Stop();
             }
+        }
+
+        private int iCount = 10;
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            label2.Text = iCount.ToString();
+            if (iCount == 0)
+            {
+                voyageCommunicationControl1.OpenSerial();
+                timer1.Enabled = false;
+            }
+            iCount--;
         }
     }
 }

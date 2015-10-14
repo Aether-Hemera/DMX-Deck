@@ -10,8 +10,9 @@ namespace SkeletonWinforms
     internal class SkeletonAnalysis
     {
         private Skeleton _skeleton;
-        private Handanalysis leftHand;
-        private Handanalysis rightHand;
+        private HandAnalysis leftHand;
+        private HandAnalysis rightHand;
+        private HeadAnalysis head;
 
         public SkeletonAnalysis(Skeleton skeleton)
         {
@@ -20,6 +21,7 @@ namespace SkeletonWinforms
             RightArmElevationRatio = double.NaN;
             ElevationOk = false;
             HandsOk = false;
+            HeadOk = false;
 
             if (IsTracking(JointType.WristLeft, JointType.WristRight))
             {
@@ -44,9 +46,15 @@ namespace SkeletonWinforms
 
                 if (IsTracking(JointType.HandLeft, JointType.HandRight))
                 {
-                    leftHand = new Handanalysis(skeleton.Joints[JointType.WristLeft], _skeleton.Joints[JointType.HandLeft]);
-                    rightHand = new Handanalysis(skeleton.Joints[JointType.WristRight], _skeleton.Joints[JointType.HandRight]);
+                    leftHand = new HandAnalysis(skeleton.Joints[JointType.WristLeft], _skeleton.Joints[JointType.HandLeft]);
+                    rightHand = new HandAnalysis(skeleton.Joints[JointType.WristRight], _skeleton.Joints[JointType.HandRight]);
                     HandsOk = true;
+                }
+
+                if (IsTracking(JointType.Head))
+                {
+                    head = new HeadAnalysis(skeleton.Joints[JointType.Head], skeleton.Joints[JointType.ShoulderCenter]);
+                    HeadOk = true;
                 }
             }
         }
@@ -64,6 +72,8 @@ namespace SkeletonWinforms
 
         public bool ElevationOk { get; private set; }
         public bool HandsOk { get; private set; }
+        public bool HeadOk { get; private set; }
+        
 
         public double LeftArmElevationRatio { get; private set; }
 
@@ -93,6 +103,16 @@ namespace SkeletonWinforms
         public bool InHand(SkeletonAnalysis other)
         {
             return leftHand.InHand(other.rightHand) || rightHand.InHand(other.leftHand);
+        }
+
+        public bool OnHead()
+        {
+            return leftHand.OnHead(head) && rightHand.OnHead(head);
+        }
+
+        public bool SelfHand()
+        {
+            return leftHand.InHand(rightHand);
         }
     }
 }

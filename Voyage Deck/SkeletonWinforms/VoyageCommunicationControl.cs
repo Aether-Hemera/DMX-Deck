@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Drawing;
 using System.Data;
 using System.Globalization;
@@ -13,6 +14,8 @@ namespace SerialDmxDeck
 {
     public partial class VoyageCommunicationControl : UserControl
     {
+        public int CurrentMode = -1;
+
         public VoyageCommunicationControl()
         {
             InitializeComponent();
@@ -110,6 +113,28 @@ namespace SerialDmxDeck
                     {
                     }
                 }
+                else if (split.Length == 1) // probably the mode
+                {
+                    int iRead;
+                    if (Int32.TryParse(split[0], out iRead))
+                    {
+                        CurrentMode = iRead;
+
+                        if (label1.InvokeRequired)
+                        {
+                            label1.Invoke((MethodInvoker)delegate
+                            {
+                                label1.Text = "Received mode: " + CurrentMode;
+                            });
+                        }
+                        else
+                            label1.Text = "Received mode: " + CurrentMode;
+
+                        
+                    }
+                    
+                    
+                }
                 else
                 {
                     msg += sub;
@@ -123,7 +148,7 @@ namespace SerialDmxDeck
         private string msg = "";
 
 
-        private void OpenSerial()
+        public void OpenSerial()
         {
             if (_comPort != null)
             {
@@ -160,10 +185,20 @@ namespace SerialDmxDeck
             _comPort.Write(sending);
         }
 
+        private int iLastSentMode = -1;
+
         private void button3_Click(object sender, EventArgs e)
         {
-            var s = string.Format("@100,{0}:", nudMode.Value.ToString(CultureInfo.InvariantCulture));
-            _comPort.Write(s);
+            var iMode = Convert.ToInt32(nudMode.Value);
+            SendMode(iMode);
+        }
+
+        private void SendMode(int iMode)
+        {
+            
+            iLastSentMode = iMode;
+            var s = string.Format("@100,{0}:", iLastSentMode.ToString(CultureInfo.InvariantCulture));
+            Send(s);
         }
 
         public void Send(string commnad)
@@ -172,5 +207,12 @@ namespace SerialDmxDeck
                 return;
             _comPort.Write(commnad);
         }
+
+        public void EnsureMode(int i)
+        {
+            if (CurrentMode!= i)   
+                SendMode(i);
+        }
+
     }
 }

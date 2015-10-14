@@ -8,12 +8,12 @@ using Microsoft.Kinect;
 
 namespace SkeletonWinforms
 {
-    class Handanalysis
+    class HandAnalysis
     {
         public Point3D Center;
         public double Radius;
         
-        public Handanalysis(Joint wristJoint, Joint handJoint)
+        public HandAnalysis(Joint wristJoint, Joint handJoint)
         {
             Center = new Point3D(
                 (wristJoint.Position.X + handJoint.Position.X) / 2,
@@ -26,13 +26,24 @@ namespace SkeletonWinforms
                     Math.Pow(wristJoint.Position.Z - handJoint.Position.Z, 2)) / 2;
         }
 
-        public bool InHand(Handanalysis otherHand)
+        public bool InHand(HandAnalysis otherHand)
         {
             var dist = Math.Sqrt(
                     Math.Pow(Center.X - otherHand.Center.X, 2) +
                     Math.Pow(Center.Y - otherHand.Center.Y, 2) +
                     Math.Pow(Center.Z - otherHand.Center.Z, 2));
             var threshold = 2 * (Radius + otherHand.Radius);
+            Debug.Print("dist: {0}, threshold: {1}", dist, threshold);
+            return dist < threshold;
+        }
+
+        public bool OnHead(HeadAnalysis head)
+        {
+            var dist = Math.Sqrt(
+                    Math.Pow(Center.X - head.Center.X, 2) +
+                    Math.Pow(Center.Y - head.Center.Y, 2) +
+                    Math.Pow(Center.Z - head.Center.Z, 2));
+            var threshold = 2 * (Radius + head.Radius);
             Debug.Print("dist: {0}, threshold: {1}", dist, threshold);
             return dist < threshold;
         }
