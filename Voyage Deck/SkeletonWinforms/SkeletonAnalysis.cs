@@ -13,6 +13,7 @@ namespace SkeletonWinforms
         private HandAnalysis leftHand;
         private HandAnalysis rightHand;
         private HeadAnalysis head;
+        private Joint SpinePoint;
 
         public SkeletonAnalysis(Skeleton skeleton)
         {
@@ -57,6 +58,11 @@ namespace SkeletonWinforms
                     HeadOk = true;
                 }
             }
+
+            if (IsTracking(JointType.Spine))
+            {
+                SpinePoint = skeleton.Joints[JointType.Head];
+            }
         }
 
         private Vector3D FromJoints(JointType jointType1, JointType jointType2)
@@ -81,7 +87,13 @@ namespace SkeletonWinforms
 
         public string Visual()
         {
-            return String.Concat(LeftArmElevationRatio.ToString("#.#"), " ", RightArmElevationRatio.ToString("#.#"));
+            // return String.Concat(LeftArmElevationRatio.ToString("#.#"), " ", RightArmElevationRatio.ToString("#.#"));
+            return String.Concat(
+                SpinePoint.Position.X.ToString("##.000"), " ",
+                SpinePoint.Position.Y.ToString("##.000"), " ",
+                SpinePoint.Position.Z.ToString("##.000"), " "
+                );
+
         }
 
         private bool IsTracking(params JointType[] joints)
@@ -113,6 +125,13 @@ namespace SkeletonWinforms
         public bool SelfHand()
         {
             return leftHand.InHand(rightHand);
+        }
+
+        internal double DistanceFrom(double cenPosX, double cenPosZ)
+        {
+            return Math.Sqrt(
+                Math.Pow(SpinePoint.Position.X - cenPosX, 2) +
+                Math.Pow(SpinePoint.Position.Z - cenPosZ, 2));
         }
     }
 }

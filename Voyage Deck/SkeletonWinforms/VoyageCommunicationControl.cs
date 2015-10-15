@@ -140,9 +140,7 @@ namespace SerialDmxDeck
                     msg += sub;
                     // 
                 }
-
             }
-            
         }
 
         private string msg = "";
@@ -150,6 +148,7 @@ namespace SerialDmxDeck
 
         public void OpenSerial()
         {
+            lblSerialStatus.Text = "Error";
             if (_comPort != null)
             {
                 if (_comPort.IsOpen)
@@ -159,22 +158,22 @@ namespace SerialDmxDeck
             }
 
             _comPort = new SerialPort();
-            if (cmbSerialSelect.Text != "")
-            {
-                var portName = cmbSerialSelect.Text.Substring(0, 4);
-                _comPort.DtrEnable = true;
-                _comPort.RtsEnable = true;
-                _comPort.PortName = portName;
-                _comPort.BaudRate = 115200;
-                // _comPort.BaudRate = 57600;
-                _comPort.DataBits = 8;
-                _comPort.Parity = Parity.None;
-                _comPort.StopBits = StopBits.One;
-                _comPort.Handshake = Handshake.XOnXOff;
-                _comPort.DataReceived += new SerialDataReceivedEventHandler(_comPort_DataReceived);
-                _comPort.Open();
-                // _comPort.ReadByte();
-            }
+            if (cmbSerialSelect.Text == "") 
+                return;
+            var portName = cmbSerialSelect.Text.Substring(0, 4);
+            _comPort.DtrEnable = true;
+            _comPort.RtsEnable = true;
+            _comPort.PortName = portName;
+            _comPort.BaudRate = 115200;
+            // _comPort.BaudRate = 57600;
+            _comPort.DataBits = 8;
+            _comPort.Parity = Parity.None;
+            _comPort.StopBits = StopBits.One;
+            _comPort.Handshake = Handshake.XOnXOff;
+            _comPort.DataReceived += new SerialDataReceivedEventHandler(_comPort_DataReceived);
+            _comPort.Open();
+            // _comPort.ReadByte();
+            lblSerialStatus.Text = "Open";
         }
 
         private void cmdSendCustom_Click(object sender, EventArgs e)
@@ -189,8 +188,15 @@ namespace SerialDmxDeck
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var iMode = Convert.ToInt32(nudMode.Value);
-            SendMode(iMode);
+            try
+            {
+                var iMode = Convert.ToInt32(nudMode.Value);
+                SendMode(iMode);
+            }
+            catch (Exception)
+            {
+                
+            }
         }
 
         private void SendMode(int iMode)

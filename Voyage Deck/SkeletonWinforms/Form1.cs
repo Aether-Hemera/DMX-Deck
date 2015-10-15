@@ -7,9 +7,11 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.Kinect;
+using SkeletonWinforms.Properties;
 
 namespace SkeletonWinforms
 {
@@ -18,8 +20,25 @@ namespace SkeletonWinforms
         public Form1()
         {
             InitializeComponent();
+            chkSerialStart.Checked = Settings.Default.SerialStart;
+            timer1.Enabled = chkSerialStart.Checked;
+
+            nudX.Value = Convert.ToDecimal(Settings.Default.CenterPosX);
+            nudZ.Value = Convert.ToDecimal(Settings.Default.CenterPosZ);
+            UseCenterPos();
         }
 
+        private void UseCenterPos()
+        {
+            cenPosX = Convert.ToDouble(nudX.Value);
+            cenPosZ = Convert.ToDouble(nudZ.Value);
+            Settings.Default.CenterPosX = cenPosX;
+            Settings.Default.CenterPosZ = cenPosZ;
+            Settings.Default.Save();
+        }
+
+        private double cenPosX = 0;
+        private double cenPosZ = 0;
 
         /// <summary>
         /// Active Kinect sensor
@@ -72,7 +91,7 @@ namespace SkeletonWinforms
 
             if (null == sensor)
             {
-                statusBarText.Text = "Kinect not ready.";
+                largeText.Text = "Kinect not ready.";
             }
         }
 
@@ -98,7 +117,10 @@ namespace SkeletonWinforms
                 return;
             }
             if (stopwatch.ElapsedMilliseconds < minTime)
-                return;           
+            {
+                Debug.Write("Skipped");
+                return;
+            }
             stopwatch.Restart();
             minTime = 100;
             
@@ -114,7 +136,7 @@ namespace SkeletonWinforms
             }
             if (skeletons.Length == 0)
             {
-                label1.Text = "<>";
+                largeText.Text = "<>";
                 return;
             }
 
@@ -130,34 +152,17 @@ namespace SkeletonWinforms
 
             if (!okAnalysed.Any())
             {
-                label1.Text = "<>";
+                largeText.Text = "<>";
                 return;
             }
-            var sortedList = okAnalysed.ToList();
+            var sortedList = okAnalysed.OrderBy(x=>x.DistanceFrom(cenPosX,cenPosZ)).ToList();
 
-            // check for OnHead
+            SingleAnalysis(sortedList.FirstOrDefault());
+
             foreach (var skel in sortedList)
             {
-                if (skel.OnHead())
-                {
-                    label1.Text = "OnHead";
-                    EnsureMode(9);
-                    minTime = 5000;
+                if (SingleAnalysis(skel)) 
                     return;
-                }
-            }
-
-            // check for SelfHand
-            foreach (var skel in sortedList)
-            {
-                if (skel.SelfHand())
-                {
-                    label1.Text = "SelfHand";
-                    voyageCommunicationControl1.Send("@105,255,255,255:"); // set white
-                    EnsureMode(12);
-                    minTime = 2000;
-                    return;
-                }
             }
 
             // check for InHands
@@ -167,37 +172,60 @@ namespace SkeletonWinforms
                 {
                     if (!okAnalysed[i].InHand(okAnalysed[iNext])) 
                         continue;
-                    label1.Text = "InHand";
+                    largeText.Text = "InHand";
                     EnsureMode(8);
                     minTime = 3000;
                     return;
                 }
             }
 
-            
-
             // visual on screen
             var visualOnScreen = new StringBuilder();
             visualOnScreen.Append("<");
-            foreach (var arm in sortedList)
+            foreach (var analysed in sortedList)
             {
-                visualOnScreen.Append(arm.Visual());
+                visualOnScreen.Append(analysed.Visual());
             }
             visualOnScreen.Append(">");
-            label1.Text = visualOnScreen.ToString();
+            largeText.Text = visualOnScreen.ToString();
 
 
             // send color command
             // todo: get the closer to the kinect only
             var txtCommand = new StringBuilder();
-            foreach (var arm in sortedList)
+            foreach (var analysed in sortedList)
             {
-                txtCommand.Append("," + ElevationToColor(arm.LeftArmElevationRatio));
-                txtCommand.Append("," + ElevationToColor(arm.RightArmElevationRatio));
+                txtCommand.Append("," + ElevationToColor(analysed.LeftArmElevationRatio));
+                txtCommand.Append("," + ElevationToColor(analysed.RightArmElevationRatio));
             }
             EnsureMode(22);
             voyageCommunicationControl1.Send(string.Format("@111,2{0}:", txtCommand)); // 2 parameters only
 
+        }
+
+        private bool SingleAnalysis(SkeletonAnalysis skel)
+        {
+            if (skel == null)
+                return false;
+            // check for OnHead
+            if (skel.OnHead())
+            {
+                largeText.Text = "OnHead";
+                EnsureMode(9);
+                minTime = 5000;
+                return true;
+            }
+
+            // check for SelfHand
+            if (skel.SelfHand())
+            {
+                largeText.Text = "SelfHand";
+                voyageCommunicationControl1.Send("@105,255,255,255:"); // set white
+                EnsureMode(12);
+                minTime = 2000;
+                return true;
+            }
+            return false;
         }
 
         private void EnsureMode(int i)
@@ -210,10 +238,17 @@ namespace SkeletonWinforms
 
         private static int ElevationToColor(double v)
         {
-            var value = Convert.ToInt32((v*120));
-            if (value < 0)
-                value += 360;
-            return value;
+            try
+            {
+                var value = Convert.ToInt32((v * 120));
+                if (value < 0)
+                    value += 360;
+                return value;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
 
 
@@ -226,11 +261,29 @@ namespace SkeletonWinforms
                 : SkeletonTrackingMode.Default;
         }
 
+        private bool InClosing = false;
+
+
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (null != sensor)
+            if (InClosing == false)
             {
-                sensor.Stop();
+                InClosing = true;
+                if (null != sensor)
+                {
+                    sensor.Stop();
+                }
+                Settings.Default.SerialStart = chkSerialStart.Checked;
+                Settings.Default.Save();
+                InClosing = true;
+                if (chkShutBirds.Checked)
+                {
+                    e.Cancel = true;
+                    timer2.Enabled = true;
+                    var client = new WebClient();
+                    var ret = client.DownloadString("http://10.0.50.20/dmin/sdown.php");
+                    lblShutDown.Text = ret;
+                }
             }
         }
 
@@ -238,13 +291,35 @@ namespace SkeletonWinforms
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            label2.Text = iCount.ToString();
+            lblSerial.Text = iCount.ToString();
             if (iCount == 0)
             {
                 voyageCommunicationControl1.OpenSerial();
                 timer1.Enabled = false;
             }
             iCount--;
+        }
+
+        private void voyageCommunicationControl1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SetCenter_Click(object sender, EventArgs e)
+        {
+            UseCenterPos();
+        }
+
+        private int ShutDownWait = 10;
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            ShutDownWait--;
+            lblSerial.Text = ShutDownWait.ToString();
+            if (ShutDownWait < 1)
+            {
+                this.Close();
+            }
         }
     }
 }

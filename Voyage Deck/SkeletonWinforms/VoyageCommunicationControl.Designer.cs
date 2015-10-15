@@ -35,10 +35,11 @@
             this.txtCustomCommand = new System.Windows.Forms.TextBox();
             this.txtReport = new System.Windows.Forms.TextBox();
             this.chkSerialShowText = new System.Windows.Forms.CheckBox();
-            this.voyageControl1 = new SerialDmxDeck.VoyageControl();
             this.nudMode = new System.Windows.Forms.NumericUpDown();
             this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblSerialStatus = new System.Windows.Forms.Label();
+            this.voyageControl1 = new SerialDmxDeck.VoyageControl();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -72,7 +73,7 @@
             this.splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer2.Location = new System.Drawing.Point(148, 186);
+            this.splitContainer2.Location = new System.Drawing.Point(173, 186);
             this.splitContainer2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.splitContainer2.Name = "splitContainer2";
             this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -85,14 +86,14 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.txtReport);
-            this.splitContainer2.Size = new System.Drawing.Size(480, 302);
-            this.splitContainer2.SplitterDistance = 49;
+            this.splitContainer2.Size = new System.Drawing.Size(532, 267);
+            this.splitContainer2.SplitterDistance = 43;
             this.splitContainer2.TabIndex = 11;
             // 
             // cmdSendCustom
             // 
             this.cmdSendCustom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cmdSendCustom.Location = new System.Drawing.Point(380, 2);
+            this.cmdSendCustom.Location = new System.Drawing.Point(432, 2);
             this.cmdSendCustom.Margin = new System.Windows.Forms.Padding(4);
             this.cmdSendCustom.Name = "cmdSendCustom";
             this.cmdSendCustom.Size = new System.Drawing.Size(96, 40);
@@ -110,7 +111,7 @@
             this.txtCustomCommand.Margin = new System.Windows.Forms.Padding(4);
             this.txtCustomCommand.Multiline = true;
             this.txtCustomCommand.Name = "txtCustomCommand";
-            this.txtCustomCommand.Size = new System.Drawing.Size(368, 40);
+            this.txtCustomCommand.Size = new System.Drawing.Size(420, 34);
             this.txtCustomCommand.TabIndex = 6;
             // 
             // txtReport
@@ -122,7 +123,7 @@
             this.txtReport.Multiline = true;
             this.txtReport.Name = "txtReport";
             this.txtReport.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtReport.Size = new System.Drawing.Size(480, 249);
+            this.txtReport.Size = new System.Drawing.Size(532, 220);
             this.txtReport.TabIndex = 5;
             // 
             // chkSerialShowText
@@ -135,17 +136,6 @@
             this.chkSerialShowText.TabIndex = 12;
             this.chkSerialShowText.Text = "Show Rx";
             this.chkSerialShowText.UseVisualStyleBackColor = true;
-            // 
-            // voyageControl1
-            // 
-            this.voyageControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.voyageControl1.Location = new System.Drawing.Point(13, 12);
-            this.voyageControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.voyageControl1.Name = "voyageControl1";
-            this.voyageControl1.RowOrder = SerialDmxDeck.VoyageControl.Order.Normal;
-            this.voyageControl1.Size = new System.Drawing.Size(615, 170);
-            this.voyageControl1.TabIndex = 5;
             // 
             // nudMode
             // 
@@ -175,6 +165,28 @@
             this.label1.TabIndex = 15;
             this.label1.Text = "Received mode:";
             // 
+            // lblSerialStatus
+            // 
+            this.lblSerialStatus.AutoSize = true;
+            this.lblSerialStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSerialStatus.Location = new System.Drawing.Point(3, 363);
+            this.lblSerialStatus.Name = "lblSerialStatus";
+            this.lblSerialStatus.Size = new System.Drawing.Size(145, 46);
+            this.lblSerialStatus.TabIndex = 16;
+            this.lblSerialStatus.Text = "Closed";
+            this.lblSerialStatus.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // voyageControl1
+            // 
+            this.voyageControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.voyageControl1.Location = new System.Drawing.Point(13, 12);
+            this.voyageControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.voyageControl1.Name = "voyageControl1";
+            this.voyageControl1.RowOrder = SerialDmxDeck.VoyageControl.Order.Normal;
+            this.voyageControl1.Size = new System.Drawing.Size(692, 170);
+            this.voyageControl1.TabIndex = 5;
+            // 
             // VoyageCommunicationControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -187,8 +199,9 @@
             this.Controls.Add(this.cmbSerialSelect);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.voyageControl1);
+            this.Controls.Add(this.lblSerialStatus);
             this.Name = "VoyageCommunicationControl";
-            this.Size = new System.Drawing.Size(638, 490);
+            this.Size = new System.Drawing.Size(715, 455);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
@@ -214,6 +227,7 @@
         private System.Windows.Forms.NumericUpDown nudMode;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblSerialStatus;
 
     }
 }
