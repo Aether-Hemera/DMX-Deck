@@ -40,10 +40,14 @@
             this.nudZ = new System.Windows.Forms.NumericUpDown();
             this.SetCenter = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.chkShutBirds = new System.Windows.Forms.CheckBox();
             this.lblShutDown = new System.Windows.Forms.Label();
+            this.chkShutBirds = new System.Windows.Forms.CheckBox();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.kLaunch = new System.Windows.Forms.Button();
+            this.kCount = new System.Windows.Forms.Button();
+            this.kState = new System.Windows.Forms.Button();
             this.voyageCommunicationControl1 = new SerialDmxDeck.VoyageCommunicationControl();
+            this.btnClose = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudZ)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -66,9 +70,9 @@
             this.largeText.Font = new System.Drawing.Font("Microsoft Sans Serif", 42F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.largeText.Location = new System.Drawing.Point(180, 9);
             this.largeText.Name = "largeText";
-            this.largeText.Size = new System.Drawing.Size(222, 79);
+            this.largeText.Size = new System.Drawing.Size(798, 79);
             this.largeText.TabIndex = 3;
-            this.largeText.Text = "label1";
+            this.largeText.Text = "Kinect not  yet contacted";
             // 
             // timer1
             // 
@@ -153,18 +157,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Shutdown";
             // 
-            // chkShutBirds
-            // 
-            this.chkShutBirds.AutoSize = true;
-            this.chkShutBirds.Checked = true;
-            this.chkShutBirds.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkShutBirds.Location = new System.Drawing.Point(6, 21);
-            this.chkShutBirds.Name = "chkShutBirds";
-            this.chkShutBirds.Size = new System.Drawing.Size(118, 21);
-            this.chkShutBirds.TabIndex = 7;
-            this.chkShutBirds.Text = "Birds shutdow";
-            this.chkShutBirds.UseVisualStyleBackColor = true;
-            // 
             // lblShutDown
             // 
             this.lblShutDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -177,10 +169,52 @@
             this.lblShutDown.Text = "lblSerial";
             this.lblShutDown.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // chkShutBirds
+            // 
+            this.chkShutBirds.AutoSize = true;
+            this.chkShutBirds.Checked = true;
+            this.chkShutBirds.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkShutBirds.Location = new System.Drawing.Point(6, 21);
+            this.chkShutBirds.Name = "chkShutBirds";
+            this.chkShutBirds.Size = new System.Drawing.Size(118, 21);
+            this.chkShutBirds.TabIndex = 7;
+            this.chkShutBirds.Text = "Birds shutdow";
+            this.chkShutBirds.UseVisualStyleBackColor = true;
+            // 
             // timer2
             // 
             this.timer2.Interval = 1000;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // kLaunch
+            // 
+            this.kLaunch.Location = new System.Drawing.Point(604, 121);
+            this.kLaunch.Name = "kLaunch";
+            this.kLaunch.Size = new System.Drawing.Size(72, 51);
+            this.kLaunch.TabIndex = 13;
+            this.kLaunch.Text = "K Start";
+            this.kLaunch.UseVisualStyleBackColor = true;
+            this.kLaunch.Click += new System.EventHandler(this.kLaunch_Click);
+            // 
+            // kCount
+            // 
+            this.kCount.Location = new System.Drawing.Point(448, 121);
+            this.kCount.Name = "kCount";
+            this.kCount.Size = new System.Drawing.Size(72, 51);
+            this.kCount.TabIndex = 14;
+            this.kCount.Text = "K Count";
+            this.kCount.UseVisualStyleBackColor = true;
+            this.kCount.Click += new System.EventHandler(this.kCount_Click);
+            // 
+            // kState
+            // 
+            this.kState.Location = new System.Drawing.Point(526, 121);
+            this.kState.Name = "kState";
+            this.kState.Size = new System.Drawing.Size(72, 51);
+            this.kState.TabIndex = 15;
+            this.kState.Text = "K State";
+            this.kState.UseVisualStyleBackColor = true;
+            this.kState.Click += new System.EventHandler(this.kState_Click);
             // 
             // voyageCommunicationControl1
             // 
@@ -190,11 +224,26 @@
             this.voyageCommunicationControl1.TabIndex = 4;
             this.voyageCommunicationControl1.Load += new System.EventHandler(this.voyageCommunicationControl1_Load);
             // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClose.Location = new System.Drawing.Point(1158, 9);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(151, 51);
+            this.btnClose.TabIndex = 16;
+            this.btnClose.Text = "Close (Safe birds)";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1321, 763);
+            this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.kState);
+            this.Controls.Add(this.kCount);
+            this.Controls.Add(this.kLaunch);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.SetCenter);
             this.Controls.Add(this.Z);
@@ -236,6 +285,10 @@
         private System.Windows.Forms.CheckBox chkShutBirds;
         private System.Windows.Forms.Label lblShutDown;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Button kLaunch;
+        private System.Windows.Forms.Button kCount;
+        private System.Windows.Forms.Button kState;
+        private System.Windows.Forms.Button btnClose;
     }
 }
 

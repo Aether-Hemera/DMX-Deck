@@ -45,56 +45,11 @@ namespace SkeletonWinforms
         /// </summary>
         private KinectSensor sensor;
 
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            // Create the drawing group we'll use for drawing
-            //drawingGroup = new DrawingGroup();
-
-            //// Create an image source that we can use in our image control
-            //imageSource = new DrawingImage(drawingGroup);
-
-            //// Display the drawing using our image control
-            //Image.Source = imageSource;
-
-            // Look through all sensors and start the first connected one.
-            // This requires that a Kinect is connected at the time of app startup.
-            // To make your app robust against plug/unplug, 
-            // it is recommended to use KinectSensorChooser provided in Microsoft.Kinect.Toolkit (See components in Toolkit Browser).
-            foreach (var potentialSensor in KinectSensor.KinectSensors)
-            {
-                if (potentialSensor.Status == KinectStatus.Connected)
-                {
-                    sensor = potentialSensor;
-                    break;
-                }
-            }
-
-            if (null != sensor)
-            {
-                // Turn on the skeleton stream to receive skeleton frames
-                sensor.SkeletonStream.Enable();
-
-                // Add an event handler to be called whenever there is new color frame data
-                sensor.SkeletonFrameReady += SensorSkeletonFrameReady;
-
-                // Start the sensor!
-                try
-                {
-                    sensor.Start();
-                }
-                catch (IOException)
-                {
-                    sensor = null;
-                }
-            }
-
-            if (null == sensor)
-            {
-                largeText.Text = "Kinect not ready.";
-            }
+            // KinectLaunch();
         }
-
+        
         private int LastSentMode = -1;
 
         // private Skeleton[] skeletons;
@@ -287,10 +242,15 @@ namespace SkeletonWinforms
             }
         }
 
-        private int iCount = 10;
+        private int iCount = 20;
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (iCount == 5)
+            {
+                KinectLaunch();
+            }
+
             lblSerial.Text = iCount.ToString();
             if (iCount == 0)
             {
@@ -320,6 +280,80 @@ namespace SkeletonWinforms
             {
                 this.Close();
             }
+        }
+
+        private void kLaunch_Click(object sender, EventArgs e)
+        {
+            KinectLaunch();
+        }
+
+        private void KinectLaunch()
+        {
+            // Create the drawing group we'll use for drawing
+            //drawingGroup = new DrawingGroup();
+
+            //// Create an image source that we can use in our image control
+            //imageSource = new DrawingImage(drawingGroup);
+
+            //// Display the drawing using our image control
+            //Image.Source = imageSource;
+
+            // Look through all sensors and start the first connected one.
+            // This requires that a Kinect is connected at the time of app startup.
+            // To make your app robust against plug/unplug, 
+            // it is recommended to use KinectSensorChooser provided in Microsoft.Kinect.Toolkit (See components in Toolkit Browser).
+            foreach (var potentialSensor in KinectSensor.KinectSensors)
+            {
+                if (potentialSensor.Status == KinectStatus.Connected)
+                {
+                    sensor = potentialSensor;
+                    break;
+                }
+            }
+
+            if (null != sensor)
+            {
+                // Turn on the skeleton stream to receive skeleton frames
+                sensor.SkeletonStream.Enable();
+
+                // Add an event handler to be called whenever there is new color frame data
+                sensor.SkeletonFrameReady += SensorSkeletonFrameReady;
+
+                // Start the sensor!
+                try
+                {
+                    sensor.Start();
+                }
+                catch (IOException)
+                {
+                    sensor = null;
+                }
+            }
+
+            if (null == sensor)
+            {
+                largeText.Text = "Kinect not ready.";
+            }
+        }
+
+        private void kCount_Click(object sender, EventArgs e)
+        {
+            largeText.Text = "Kinect count: " + KinectSensor.KinectSensors.Count;
+        }
+
+        private void kState_Click(object sender, EventArgs e)
+        {
+            largeText.Text = "";
+            foreach (var potentialSensor in KinectSensor.KinectSensors)
+            {
+                largeText.Text += potentialSensor.Status + "; ";
+            }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            chkShutBirds.Checked = false;
+            Close();
         }
     }
 }
