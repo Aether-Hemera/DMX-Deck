@@ -80,11 +80,8 @@ namespace SkeletonWinforms
                 largeText.Text = "<>";
                 return;
             }
-
-            
-
             // test the behaviour of the first skeleton
-            if (SingleAnalysis(closestSkeleton))
+            if (SingleActionCapturedFor(closestSkeleton))
                 return;
                 
             // check for InHands
@@ -102,9 +99,12 @@ namespace SkeletonWinforms
             }
 
             // test specific behaviours in others.
-            if (sortedList.Any(SingleAnalysis))
+            if (false)
             {
-                return;
+                if (sortedList.Any(SingleActionCapturedFor))
+                {
+                    return;
+                }
             }
 
             // visual on screen
@@ -112,23 +112,24 @@ namespace SkeletonWinforms
             visualOnScreen.Append("<");
             foreach (var analysed in sortedList)
             {
-                visualOnScreen.Append(analysed.Visual());
+                visualOnScreen.Append(analysed.VisualText());
             }
             visualOnScreen.Append(">");
             largeText.Text = visualOnScreen.ToString();
 
-
-            // send color command
+            // we have got one skeleton, and no specific actions... 
+            // then send color command
             var txtCommand = new StringBuilder();
-            txtCommand.Append("," + ElevationToColor(closestSkeleton.LeftArmElevationRatio));
-            txtCommand.Append("," + ElevationToColor(closestSkeleton.RightArmElevationRatio));
+            txtCommand.AppendFormat(",{0}", ElevationToColor(closestSkeleton.LeftForeArmElevationRatio));
+            txtCommand.AppendFormat(",{0}", ElevationToColor(closestSkeleton.RightForeArmElevationRatio));
             
+            // this will only happen if not 22 yet
             EnsureMode(22);
-            voyageCommunicationControl1.Send(string.Format("@111,2{0}:", txtCommand)); // 2 parameters only
+            voyageCommunicationControl1.Send(string.Format("@111,2{0}:", txtCommand)); 
 
         }
 
-        private bool SingleAnalysis(SkeletonAnalysis skel)
+        private bool SingleActionCapturedFor(SkeletonAnalysis skel)
         {
             if (skel == null)
                 return false;
