@@ -66,7 +66,6 @@ namespace SkeletonWinforms
                 return;
             }
 
-
             var okAnalysed = new List<SkeletonAnalysis>();
             foreach (var skeleton in skeletons)
             {
@@ -74,23 +73,20 @@ namespace SkeletonWinforms
                 if (sk.AllOk())
                     okAnalysed.Add(sk);
             }
-
-
-            if (!okAnalysed.Any())
+            var sortedList = okAnalysed.OrderBy(x => x.DistanceFrom(_userCenterPosX, _userCenterPosZ)).ToList();
+            var closestSkeleton = sortedList.FirstOrDefault();
+            if (closestSkeleton == null)
             {
                 largeText.Text = "<>";
                 return;
             }
-            var sortedList = okAnalysed.OrderBy(x => x.DistanceFrom(_userCenterPosX, _userCenterPosZ)).ToList();
 
-            SingleAnalysis(sortedList.FirstOrDefault());
+            
 
-            foreach (var skel in sortedList)
-            {
-                if (SingleAnalysis(skel))
-                    return;
-            }
-
+            // test the behaviour of the first skeleton
+            if (SingleAnalysis(closestSkeleton))
+                return;
+                
             // check for InHands
             for (var i = 0; i < okAnalysed.Count; i++)
             {
@@ -105,6 +101,12 @@ namespace SkeletonWinforms
                 }
             }
 
+            // test specific behaviours in others.
+            if (sortedList.Any(SingleAnalysis))
+            {
+                return;
+            }
+
             // visual on screen
             var visualOnScreen = new StringBuilder();
             visualOnScreen.Append("<");
@@ -117,13 +119,10 @@ namespace SkeletonWinforms
 
 
             // send color command
-            // todo: get the closer to the kinect only
             var txtCommand = new StringBuilder();
-            foreach (var analysed in sortedList)
-            {
-                txtCommand.Append("," + ElevationToColor(analysed.LeftArmElevationRatio));
-                txtCommand.Append("," + ElevationToColor(analysed.RightArmElevationRatio));
-            }
+            txtCommand.Append("," + ElevationToColor(closestSkeleton.LeftArmElevationRatio));
+            txtCommand.Append("," + ElevationToColor(closestSkeleton.RightArmElevationRatio));
+            
             EnsureMode(22);
             voyageCommunicationControl1.Send(string.Format("@111,2{0}:", txtCommand)); // 2 parameters only
 
@@ -133,6 +132,7 @@ namespace SkeletonWinforms
         {
             if (skel == null)
                 return false;
+            
             // check for OnHead
             if (skel.OnHead())
             {
