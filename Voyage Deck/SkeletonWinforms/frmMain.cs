@@ -15,9 +15,9 @@ using SkeletonWinforms.Properties;
 
 namespace SkeletonWinforms
 {
-    public partial class Form1 : Form
+    public partial class frmMain : Form
     {
-        public Form1()
+        public frmMain()
         {
             InitializeComponent();
             chkSerialStart.Checked = Settings.Default.SerialStart;
