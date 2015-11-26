@@ -44,7 +44,7 @@ namespace SkeletonWinforms
             }
             if (stopwatch.ElapsedMilliseconds < minTime)
             {
-                Debug.Write("Skipped");
+                // Debug.Write("Skipped");
                 return;
             }
             stopwatch.Restart();
@@ -133,24 +133,50 @@ namespace SkeletonWinforms
         {
             if (skel == null)
                 return false;
-            
+
+            if (skel.OnHips())
+            {
+                largeText.Text = "OnHips";
+                EnsureMode(25); // stars
+                minTime = 500;
+                return true;
+            }
+
+            if (skel.OverHead())
+            {
+                largeText.Text = "OverHead";
+                EnsureMode(10); // stars
+                minTime = 500;
+                return true;
+            }
+
             // check for OnHead
             if (skel.OnHead())
             {
                 largeText.Text = "OnHead";
-                EnsureMode(9);
-                minTime = 5000;
+                EnsureMode(9); // fireworks
+                minTime = 500;
                 return true;
             }
 
             // check for SelfHand
             if (skel.SelfHand())
             {
-                largeText.Text = "SelfHand";
-                voyageCommunicationControl1.Send("@105,255,255,255:"); // set white
-                EnsureMode(12);
-                minTime = 2000;
-                return true;
+                largeText.Text = "SelfHand : " + skel.SelfHandCurrent; // + " " + skel.posComp;
+                if (skel.SelfHandCurrent == SkeletonAnalysis.SelfHandMode.Lefty)
+                {
+                    // voyageCommunicationControl1.Send("@105,255,255,255:"); // set white
+                    EnsureMode(23);
+                    minTime = 500;
+                    return true;
+                }
+                if (skel.SelfHandCurrent == SkeletonAnalysis.SelfHandMode.Righty)
+                {
+                    // voyageCommunicationControl1.Send("@105,255,255,255:"); // set white
+                    EnsureMode(24);
+                    minTime = 500;
+                    return true;
+                }
             }
             return false;
         }

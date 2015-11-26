@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Media.Media3D;
 using Microsoft.Kinect;
 
@@ -26,7 +27,7 @@ namespace SkeletonWinforms
 
                 if (
                     IsTracking(JointType.Spine, JointType.ShoulderCenter) &&
-                    IsTracking(JointType.ShoulderLeft, JointType.ElbowLeft ) &&
+                    IsTracking(JointType.ShoulderLeft, JointType.ElbowLeft) &&
                     IsTracking(JointType.ShoulderRight, JointType.ElbowRight)
                     )
                 {
@@ -44,8 +45,10 @@ namespace SkeletonWinforms
 
                 if (IsTracking(JointType.HandLeft, JointType.HandRight))
                 {
-                    _leftHand = new HandAnalysis(skeleton.Joints[JointType.WristLeft], _skeleton.Joints[JointType.HandLeft]);
-                    _rightHand = new HandAnalysis(skeleton.Joints[JointType.WristRight], _skeleton.Joints[JointType.HandRight]);
+                    _leftHand = new HandAnalysis(skeleton.Joints[JointType.WristLeft],
+                        _skeleton.Joints[JointType.HandLeft]);
+                    _rightHand = new HandAnalysis(skeleton.Joints[JointType.WristRight],
+                        _skeleton.Joints[JointType.HandRight]);
                     HandsOk = true;
                 }
 
@@ -81,7 +84,7 @@ namespace SkeletonWinforms
         public bool ElevationOk { get; private set; }
         public bool HandsOk { get; private set; }
         public bool HeadOk { get; private set; }
-        
+
 
         public double LeftForeArmElevationRatio { get; private set; }
 
@@ -90,6 +93,7 @@ namespace SkeletonWinforms
         public string VisualText()
         {
             // return String.Concat(LeftArmElevationRatio.ToString("#.#"), " ", RightArmElevationRatio.ToString("#.#"));
+            // return _selfHandMode.ToString();
             return string.Concat(
                 _distanceCalcPoint.Position.X.ToString("##.000"), " ",
                 _distanceCalcPoint.Position.Y.ToString("##.000"), " ",
@@ -124,6 +128,11 @@ namespace SkeletonWinforms
             return _leftHand.OnHead(_head) && _rightHand.OnHead(_head);
         }
 
+        public bool OverHead()
+        {
+            return _leftHand.OverHead(_head) && _rightHand.OverHead(_head);
+        }
+
         public enum SelfHandMode
         {
             Undefined,
@@ -133,30 +142,40 @@ namespace SkeletonWinforms
             Righty
         }
 
-        SelfHandMode _selfHandMode = SelfHandMode.Undefined;
+        public SelfHandMode SelfHandCurrent = SelfHandMode.Undefined;
+
+        public double posComp;
 
         public bool SelfHand()
         {
             var selfHand = _leftHand.InHand(_rightHand);
             if (!selfHand)
             {
-                _selfHandMode = SelfHandMode.Not;
+                SelfHandCurrent = SelfHandMode.Not;
                 return false;
             }
-            if (!ElevationOk) 
+            if (!ElevationOk)
                 return true;
             // here's where we compute the leftiness/rightiness of the self hand
-            var midWrist = MidPoint(_skeleton.Joints[JointType.WristLeft], _skeleton.Joints[JointType.WristRight]);
-            var midShoulder = MidPoint(_skeleton.Joints[JointType.ShoulderLeft], _skeleton.Joints[JointType.ShoulderRight]);
+            var midWrist = MidPoint(_skeleton.Joints[JointType.HandLeft], _skeleton.Joints[JointType.HandRight]);
+            var midShoulder = MidPoint(_skeleton.Joints[JointType.ShoulderLeft],
+                _skeleton.Joints[JointType.ShoulderRight]);
 
             var midHandVector = FromPoints(midShoulder, midWrist);
             var midShoulderRightVector = FromPoints(midShoulder, _skeleton.Joints[JointType.ShoulderRight].Position);
 
+
             // todo: check here for thresholds of centerness
-            var posComp = Vector3D.DotProduct(midHandVector, midShoulderRightVector);
-            
-            _selfHandMode = posComp < 0 
-                ? SelfHandMode.Lefty 
+            posComp = Vector3D.DotProduct(midHandVector, midShoulderRightVector);
+
+            //Debug.Print("hv: {0:##.000} sv: {1:##.000} comp:{2:##.000}",
+            //    midHandVector.Length,
+            //    midShoulderRightVector.Length,
+            //    posComp
+            //    );
+
+            SelfHandCurrent = posComp < 0
+                ? SelfHandMode.Lefty
                 : SelfHandMode.Righty;
 
             return true;
@@ -182,6 +201,26 @@ namespace SkeletonWinforms
                 Math.Pow(_distanceCalcPoint.Position.X - cenPosX, 2) +
                 Math.Pow(_distanceCalcPoint.Position.Z - cenPosZ, 2)
                 );
+        }
+
+
+        public bool OnHips()
+        {
+            if ( RightAngle(JointType.ShoulderRight, JointType.ElbowRight, JointType.WristRight))
+                return _rightHand.NearHip(_skeleton.Joints[JointType.HipRight])
+                   && _leftHand.NearHip(_skeleton.Joints[JointType.HipLeft]);
+            return false;
+        }
+
+        private bool RightAngle(JointType a, JointType mid, JointType c)
+        {
+            var v1 = FromJoints(a, mid);
+            var v2 = FromJoints(mid, c);
+            v2.Normalize();
+            var comp = Vector3D.DotProduct(v1, v2);
+            Debug.Print("comp: {0}", comp);
+            // var t = comp/v1.Length;
+            return comp < 0.25;
         }
     }
 }

@@ -33,7 +33,7 @@ namespace SkeletonWinforms
                     Math.Pow(Center.Y - otherHand.Center.Y, 2) +
                     Math.Pow(Center.Z - otherHand.Center.Z, 2));
             var threshold = 2 * (Radius + otherHand.Radius);
-            Debug.Print("dist: {0}, threshold: {1}", dist, threshold);
+            // Debug.Print("dist: {0}, threshold: {1}", dist, threshold);
             return dist < threshold;
         }
 
@@ -44,6 +44,23 @@ namespace SkeletonWinforms
                     Math.Pow(Center.Y - head.Center.Y, 2) +
                     Math.Pow(Center.Z - head.Center.Z, 2));
             var threshold = 2 * (Radius + head.Radius);
+            // Debug.Print("dist: {0}, threshold: {1}", dist, threshold);
+            return dist < threshold;
+        }
+
+        public bool OverHead(HeadAnalysis head)
+        {
+            var diffY = Center.Y - head.Center.Y;
+            return diffY > 4 * Radius;
+        }
+
+        public bool NearHip(Joint joint)
+        {
+            var dist = Math.Sqrt(
+                    Math.Pow(Center.X - joint.Position.X, 2) +
+                    Math.Pow(Center.Y - joint.Position.Y, 2) +
+                    Math.Pow(Center.Z - joint.Position.Z, 2));
+            var threshold = 9 * (Radius);
             Debug.Print("dist: {0}, threshold: {1}", dist, threshold);
             return dist < threshold;
         }
