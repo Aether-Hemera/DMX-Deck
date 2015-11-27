@@ -12,13 +12,21 @@ namespace SkeletonWinforms
         public frmMain()
         {
             InitializeComponent();
-            chkSerialStart.Checked = Settings.Default.SerialStart;
-            timer1.Enabled = chkSerialStart.Checked;
-
-            // load center position setting and apply
-            nudX.Value = Convert.ToDecimal(Settings.Default.CenterPosX);
-            nudZ.Value = Convert.ToDecimal(Settings.Default.CenterPosZ);
-            ApplyCenterPos();
+            
+            try
+            {
+                chkSerialStart.Checked = Settings.Default.SerialStart;
+                timer1.Enabled = chkSerialStart.Checked;
+                // load center position setting and apply
+                nudX.Value = Convert.ToDecimal(Settings.Default.CenterPosX);
+                nudZ.Value = Convert.ToDecimal(Settings.Default.CenterPosZ);
+                ApplyCenterPos();
+            }
+            catch (Exception)
+            {
+                timer1.Enabled = chkSerialStart.Checked;
+            }
+            
         }
 
         private void ApplyCenterPos()

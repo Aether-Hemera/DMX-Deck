@@ -206,7 +206,11 @@ namespace SkeletonWinforms
 
         public bool OnHips()
         {
-            if ( RightAngle(JointType.ShoulderRight, JointType.ElbowRight, JointType.WristRight))
+            if ( 
+                RightAngle(JointType.ShoulderRight, JointType.ElbowRight, JointType.WristRight)
+                &&
+                RightAngle(JointType.ShoulderLeft, JointType.ElbowLeft, JointType.WristLeft)
+                )
                 return _rightHand.NearHip(_skeleton.Joints[JointType.HipRight])
                    && _leftHand.NearHip(_skeleton.Joints[JointType.HipLeft]);
             return false;
