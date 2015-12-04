@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.checkBoxSeatedMode = new System.Windows.Forms.CheckBox();
             this.largeText = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timerEnableKit = new System.Windows.Forms.Timer(this.components);
             this.lblSerial = new System.Windows.Forms.Label();
             this.chkSerialStart = new System.Windows.Forms.CheckBox();
             this.nudX = new System.Windows.Forms.NumericUpDown();
@@ -42,7 +42,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblShutDown = new System.Windows.Forms.Label();
             this.chkShutBirds = new System.Windows.Forms.CheckBox();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.timerShutDownBirds = new System.Windows.Forms.Timer(this.components);
             this.kLaunch = new System.Windows.Forms.Button();
             this.kCount = new System.Windows.Forms.Button();
             this.kState = new System.Windows.Forms.Button();
@@ -78,11 +78,11 @@
             this.largeText.TabIndex = 3;
             this.largeText.Text = "Kinect not  yet contacted";
             // 
-            // timer1
+            // timerEnableKit
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timerEnableKit.Enabled = true;
+            this.timerEnableKit.Interval = 1000;
+            this.timerEnableKit.Tick += new System.EventHandler(this.timerEnableKit_Tick);
             // 
             // lblSerial
             // 
@@ -105,6 +105,7 @@
             this.chkSerialStart.TabIndex = 6;
             this.chkSerialStart.Text = "Serial Auto Start";
             this.chkSerialStart.UseVisualStyleBackColor = true;
+            this.chkSerialStart.CheckedChanged += new System.EventHandler(this.chkSerialStart_CheckedChanged);
             // 
             // nudX
             // 
@@ -184,10 +185,10 @@
             this.chkShutBirds.Text = "Birds shutdow";
             this.chkShutBirds.UseVisualStyleBackColor = true;
             // 
-            // timer2
+            // timerShutDownBirds
             // 
-            this.timer2.Interval = 1000;
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            this.timerShutDownBirds.Interval = 1000;
+            this.timerShutDownBirds.Tick += new System.EventHandler(this.timerShutDownBirds_Tick);
             // 
             // kLaunch
             // 
@@ -299,7 +300,7 @@
         private System.Windows.Forms.CheckBox checkBoxSeatedMode;
         private System.Windows.Forms.Label largeText;
         private SerialDmxDeck.VoyageCommunicationControl voyageCommunicationControl1;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timerEnableKit;
         private System.Windows.Forms.Label lblSerial;
         private System.Windows.Forms.CheckBox chkSerialStart;
         private System.Windows.Forms.NumericUpDown nudX;
@@ -310,7 +311,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox chkShutBirds;
         private System.Windows.Forms.Label lblShutDown;
-        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Timer timerShutDownBirds;
         private System.Windows.Forms.Button kLaunch;
         private System.Windows.Forms.Button kCount;
         private System.Windows.Forms.Button kState;

@@ -1,15 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SkeletonWinforms.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
   <Profiles />
-  <Settings>
-    <Setting Name="SerialStart" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="CenterPosX" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">0.25</Value>
-    </Setting>
-    <Setting Name="CenterPosZ" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">2.7</Value>
-    </Setting>
-  </Settings>
+  <Settings />
 </SettingsFile>

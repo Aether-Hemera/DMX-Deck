@@ -22,41 +22,5 @@ namespace SkeletonWinforms.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool SerialStart {
-            get {
-                return ((bool)(this["SerialStart"]));
-            }
-            set {
-                this["SerialStart"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.25")]
-        public double CenterPosX {
-            get {
-                return ((double)(this["CenterPosX"]));
-            }
-            set {
-                this["CenterPosX"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2.7")]
-        public double CenterPosZ {
-            get {
-                return ((double)(this["CenterPosZ"]));
-            }
-            set {
-                this["CenterPosZ"] = value;
-            }
-        }
     }
 }

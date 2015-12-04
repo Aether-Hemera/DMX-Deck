@@ -1,59 +1,54 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net;
+using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Kinect;
-using SkeletonWinforms.Properties;
+// ReSharper disable LocalizableElement
 
 namespace SkeletonWinforms
 {
     // ReSharper disable once InconsistentNaming
     public partial class frmMain : Form
     {
+        // ReSharper disable once ConvertToConstant.Local
+        private readonly bool _doStart = true;
+        // ReSharper disable once ConvertToConstant.Local
+        private readonly double _centerPosX = 0.25;
+        // ReSharper disable once ConvertToConstant.Local
+        private readonly double _centerPosZ = 2.7;
+
+
         public frmMain()
         {
             InitializeComponent();
-            
-            try
-            {
-                chkSerialStart.Checked = Settings.Default.SerialStart;
-                timer1.Enabled = chkSerialStart.Checked;
-                // load center position setting and apply
-                nudX.Value = Convert.ToDecimal(Settings.Default.CenterPosX);
-                nudZ.Value = Convert.ToDecimal(Settings.Default.CenterPosZ);
-                ApplyCenterPos();
-            }
-            catch (Exception)
-            {
-                timer1.Enabled = chkSerialStart.Checked;
-            }
-            
+            chkSerialStart.Checked = _doStart;
+            timerEnableKit.Enabled = chkSerialStart.Checked;
+
+            // load center position setting and apply
+            nudX.Value = Convert.ToDecimal(_centerPosX);
+            nudZ.Value = Convert.ToDecimal(_centerPosZ);
+            ApplyCenterPos();
         }
 
         private void ApplyCenterPos()
         {
             _userCenterPosX = Convert.ToDouble(nudX.Value);
             _userCenterPosZ = Convert.ToDouble(nudZ.Value);
-            Settings.Default.CenterPosX = _userCenterPosX;
-            Settings.Default.CenterPosZ = _userCenterPosZ;
-            Settings.Default.Save();
         }
 
-        private double _userCenterPosX = 0;
-        private double _userCenterPosZ = 0;
+        private double _userCenterPosX;
+        private double _userCenterPosZ;
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // KinectLaunch();
+            
         }
-        
-        private int LastSentMode = -1;
         
         private void EnsureMode(int i)
         {
-            if (LastSentMode != i)
-            {
-                voyageCommunicationControl1.EnsureMode(i); 
-            }
+            voyageCommunicationControl1.EnsureMode(i);
+   
         }
 
         private static int ElevationToColor(double v)
@@ -71,34 +66,56 @@ namespace SkeletonWinforms
             }
         }
 
-        private bool InClosing = false;
+        private class ShortTimeOutClient : WebClient
+        {
+            protected override WebRequest GetWebRequest(Uri uri)
+            {
+                var w = base.GetWebRequest(uri);
+                if (w != null)
+                {
+                    w.Timeout = 5 * 1000;
+                }
+                return w;
+            }
+        }
+
+        private bool _inClosing;
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (InClosing == false)
+            if (_inClosing)
+                return;
+            _inClosing = true;
+            if (null != sensor)
             {
-                InClosing = true;
-                if (null != sensor)
-                {
-                    sensor.Stop();
-                }
-                Settings.Default.SerialStart = chkSerialStart.Checked;
-                Settings.Default.Save();
-                InClosing = true;
-                if (chkShutBirds.Checked)
-                {
-                    e.Cancel = true;
-                    timer2.Enabled = true;
-                    var client = new WebClient();
-                    var ret = client.DownloadString("http://10.0.50.20/dmin/sdown.php");
-                    lblShutDown.Text = ret;
-                }
+                sensor.Stop();
             }
+            _inClosing = true;
+            if (!chkShutBirds.Checked)
+                return;
+            e.Cancel = true;
+            
+            timerShutDownBirds.Enabled = true;
+            timerEnableKit.Enabled = false;
+
+            new Thread(() =>
+            {
+                var client = new ShortTimeOutClient();
+                try
+                {
+                    var ret = client.DownloadString("http://10.0.50.20/dmin/sdown.php");
+                    // lblShutDown.Text = ret;
+                }
+                catch (Exception ex)
+                {
+                    Debug.Print(ex.Message);
+                }
+            }).Start();    
         }
 
         private int _iCountDown = 20;
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timerEnableKit_Tick(object sender, EventArgs e)
         {
             if (_iCountDown == 5)
             {
@@ -109,7 +126,7 @@ namespace SkeletonWinforms
             if (_iCountDown == 0)
             {
                 voyageCommunicationControl1.OpenSerial();
-                timer1.Enabled = false;
+                timerEnableKit.Enabled = false;
             }
             _iCountDown--;
         }
@@ -124,15 +141,15 @@ namespace SkeletonWinforms
             ApplyCenterPos();
         }
 
-        private int ShutDownWait = 10;
+        private int _shutDownWait = 10;
 
-        private void timer2_Tick(object sender, EventArgs e)
+        private void timerShutDownBirds_Tick(object sender, EventArgs e)
         {
-            ShutDownWait--;
-            lblSerial.Text = ShutDownWait.ToString();
-            if (ShutDownWait < 1)
+            _shutDownWait--;
+            lblSerial.Text = _shutDownWait.ToString();
+            if (_shutDownWait < 1)
             {
-                this.Close();
+                Close();
             }
         }
 
@@ -159,6 +176,11 @@ namespace SkeletonWinforms
         {
             chkShutBirds.Checked = false;
             Close();
+        }
+
+        private void chkSerialStart_CheckedChanged(object sender, EventArgs e)
+        {
+            timerEnableKit.Enabled = chkSerialStart.Checked;
         }
     }
 }
